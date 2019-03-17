@@ -42,8 +42,6 @@ if(!isset($_SESSION['userId'])) {
 
 	    // Optional: Now you have a token you can look up a users profile data
 	    try {
-	    	session_unset();
-	    	session_destroy();
 	        // We got an access token, let's now get the owner details
 	        $ownerDetails = $provider->getResourceOwner($token);
 	        // Compare email from Google & from Database and check if theres a match
@@ -53,6 +51,8 @@ if(!isset($_SESSION['userId'])) {
 	        $sql = 'SELECT * FROM users WHERE email = ?';
 	        $stmt = mysqli_stmt_init($conn);
 	        if(!mysqli_stmt_prepare($stmt, $sql)) {
+	        	session_unset();
+	        	session_destroy();
 	        	header("Location: ../index.php?error=Server");
 	        }
 	        else {
@@ -63,6 +63,8 @@ if(!isset($_SESSION['userId'])) {
 	        	if($row < 1 ) {
 	        		mysqli_stmt_close($stmt);
 	        		mysqli_close($conn);
+	        		session_unset();
+	        		session_destroy();
 	        		header('Location: ../index.php?error=notVesId');
 	        	}
 	        	else {
@@ -70,6 +72,7 @@ if(!isset($_SESSION['userId'])) {
 			        $_SESSION['userImg'] = $ownerDetails->getAvatar();
 			        //Set Session
 			        $_SESSION['userId'] = $ownerDetails->getId();
+			
 			        $_SESSION['userEmail'] = $email_goog;
 			        $_SESSION['username'] = $ownerDetails->getName();
 			        $_SESSION['userFN'] = $ownerDetails->getFirstName();
@@ -111,7 +114,7 @@ if(!isset($_SESSION['userId'])) {
 	<header class="dark_header">
 		<img src="../Icons/ves_drk.png">
 		<div>
-			<div>
+			<div onclick="window.location.href = 'logout.php'">
 				Logout
 			</div>
 			<img src="../Icons/dark/logout.png">

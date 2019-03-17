@@ -1,7 +1,5 @@
 <?php 
 session_start();
-session_unset();
-session_destroy();
 if(isset($_SESSION['userId'])) {
 	header("Location: User_pages/dashboard.php");
 }
@@ -36,7 +34,15 @@ if(isset($_GET['error'])) {
 	<div class="divi">
 		<h1>Welcome to<br> Aptitude Test Portal.</h1>
 		<button><span>Login</span></button>
-		<p><b>Note: Enter VES ID</b></p>
+		<?php 
+			if(isset($_GET['status'])) {
+				if($_GET['status'] = 'loggedOut') 
+					echo "<p><b>Logged Out Successfully!</b></p>";
+			}
+			else
+				echo "<p><b>Note: Enter VES ID</b></p>";			
+		?>
+		
 	</div>
 	<div class="divi">
 		

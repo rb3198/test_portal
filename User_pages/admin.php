@@ -105,7 +105,7 @@ if(!isset($_SESSION['userId'])) {
 	<header class="dark_header">
 		<img src="../Icons/ves_drk.png">
 		<div>
-			<div>
+			<div onclick="window.location.href = 'logout.php'">
 				Logout
 			</div>
 			<img src="../Icons/dark/logout.png">
