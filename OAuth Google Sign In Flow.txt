@@ -1,0 +1,36 @@
+1. Use composer to install OAuth2.0 Library for Google. 
+2. Load the library in your php file
+require 'F:\XAMPP\htdocs\scripts\Side Project\vendor\autoload.php';
+
+use \League\OAuth2\Client\Provider\Google;
+
+3. Make a new Object of Class Google.
+-> Constructor of the class requires an    associative array with fields:
+   3.1 clientId -> ID given by Google to our Project
+   3.2 clientSecret -> Secret Key given by Google to our Project.
+   3.3 redirectUri -> Uri for google to redirect back on with the token
+
+4. Check for 'error' field in URL using $_GET['error']
+   If an error exists then display the error else next
+5. Check if we have an authorization code in our URL using       $_GET['code'] . If its empty then head to google to signin    the user. 
+6. Once back use the code in GET URL to obtain Access token    to the user's profile. Store the response in a local var.
+
+---RETRIEVING DIFFERENT USER DETAILS---
+
+getResourceOwner(token no appended with response URL) method of Google Class returns an object containing unique ID, DP, FirstName, LastName & Email of the user.
+
+//store the object into a variable
+$ownerDetails = $provider->getResourceOwner($token);
+
+//get a link to User's Image
+$ownerDetails->getAvatar();
+
+//get User's First Name & Last Name
+$ownerDetails->getFirstName();
+$ownerDetails->getLastName();
+
+//get User's email
+$ownerDetails->getEmail();
+
+//get User's unique ID
+$ownerDetails->getID();
