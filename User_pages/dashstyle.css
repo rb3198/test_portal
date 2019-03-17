@@ -49,7 +49,7 @@
 
 body {
 	width: 100%;
-	height: 100vh;
+	height: 99.99vh;
 }
 
 header {
@@ -85,13 +85,13 @@ header div img {
 	display: flex;
 	flex-flow: row;
 	width: 100%;
-	height: 90vh;
+	height: 89.9vh;
 }
 
 #main #options {
 	width: 17%;
 	/*background-color: rgb(244, 244, 244);*/
-	height: 90vh;
+	height: 89.9vh;
 	
     display: flex;
     flex-direction: column;
@@ -183,8 +183,11 @@ header div img {
 	flex-flow: column;
 	align-items: center;
 	justify-content: flex-start;
+<<<<<<< HEAD
 	
 	
+=======
+>>>>>>> 2e9a16ce6e8d5095b861040c55d616a89fde8213
 }
 
 /*52,55,60*/
