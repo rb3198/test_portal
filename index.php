@@ -38,8 +38,8 @@ if(isset($_GET['error'])) {
 	</div>
 </div>
 <?php
-	if($err = 1) {
-		echo '<script>alert("ERROR: Enter VESIT ID");</script>';
+	if($err == 1) {
+		echo '<script>alert("ERROR: Enter VESIT ID"); console.log('.$err.')</script>';
 	}
 ?>
 <script type="text/javascript" src="script.js"></script>
