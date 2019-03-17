@@ -40,18 +40,39 @@ if(!isset($_SESSION['userId'])) {
 
 	    // Optional: Now you have a token you can look up a users profile data
 	    try {
-
+	    	session_unset();
+	    	session_destroy();
 	        // We got an access token, let's now get the owner details
 	        $ownerDetails = $provider->getResourceOwner($token);
-	        $email = $ownerDetails->getEmail();
-	        // Use these details to create a new profile
-	        $_SESSION['userImg'] = $ownerDetails->getAvatar();
-	        //Set Session
-	        $_SESSION['userId'] = $ownerDetails->getId();
-	        $_SESSION['userEmail'] = $ownerDetails->getEmail();
-	        $_SESSION['username'] = $ownerDetails->getName();
-	        $_SESSION['userFN'] = $ownerDetails->getFirstName();
-
+	        // Compare email from Google & from Database and check if theres a match
+	        // If not, reject and get back to the front page
+	        $email_goog = $ownerDetails->getEmail(); //Email from google
+	        require('../connect.php');
+	        $sql = 'SELECT * FROM users WHERE email = ?';
+	        $stmt = mysqli_stmt_init($conn);
+	        if(!mysqli_stmt_prepare($stmt, $sql)) {
+	        	header("Location: ../index.php?error=Server");
+	        }
+	        else {
+	        	mysqli_stmt_bind_param($stmt, "s", $email_goog);
+	        	mysqli_stmt_execute($stmt);
+	        	mysqli_stmt_store_result($stmt);
+	        	$row = mysqli_stmt_num_rows($stmt);
+	        	if($row < 1 ) {
+	        		mysqli_stmt_close($stmt);
+	        		mysqli_close($conn);
+	        		header('Location: ../index.php?error=notVesId');
+	        	}
+	        	else {
+	        		// Use these details to create a new profile
+			        $_SESSION['userImg'] = $ownerDetails->getAvatar();
+			        //Set Session
+			        $_SESSION['userId'] = $ownerDetails->getId();
+			        $_SESSION['userEmail'] = $email_goog;
+			        $_SESSION['username'] = $ownerDetails->getName();
+			        $_SESSION['userFN'] = $ownerDetails->getFirstName();
+	        	}
+	        }
 	    } catch (Exception $e) {
 
 	        // Failed to get user details

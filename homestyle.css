@@ -68,6 +68,7 @@ header img {
 	margin-left: 10%;
 
 }
+
 #main .divi button span {
 	transition: padding 0.5s;
 	position: relative;
@@ -88,6 +89,13 @@ header img {
 #main .divi button:hover span:after {
 	right: 0px;
 	opacity: 1;
+}
+
+#main .divi p {
+	color: red;
+	font-family: Roboto;
+	font-size: 0.9em;
+	margin-left: 10%;
 }
 
 /*Tablets*/
@@ -152,6 +160,10 @@ header img {
 
 #main .divi h1 {
 	margin-top: 0;
+	margin-left: 0;
+}
+
+#main .divi p {
 	margin-left: 0;
 }
 }

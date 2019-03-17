@@ -1,6 +1,7 @@
 <?php 
 session_start();
-
+session_unset();
+session_destroy();
 if(isset($_SESSION['userId'])) {
 	header("Location: User_pages/dashboard.php");
 }
@@ -8,6 +9,9 @@ $err = 0;
 if(isset($_GET['error'])) {
 	if($_GET['error'] == 'notVesId') {
 		$err = 1;
+	}
+	elseif ($_GET['error'] == 'Server') {
+		$err = 2;
 	}
 }
 
@@ -32,6 +36,7 @@ if(isset($_GET['error'])) {
 	<div class="divi">
 		<h1>Welcome to<br> Aptitude Test Portal.</h1>
 		<button><span>Login</span></button>
+		<p><b>Note: Enter VES ID</b></p>
 	</div>
 	<div class="divi">
 		
@@ -40,6 +45,9 @@ if(isset($_GET['error'])) {
 <?php
 	if($err == 1) {
 		echo '<script>alert("ERROR: Enter VESIT ID"); console.log('.$err.')</script>';
+	}
+	if($err == 2) {
+		echo '<script>alert("ERROR: Server Error"); console.log('.$err.')</script>';
 	}
 ?>
 <script type="text/javascript" src="script.js"></script>
