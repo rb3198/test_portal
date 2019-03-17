@@ -1,10 +1,16 @@
 <?php 
 session_start();
-session_unset();
-session_destroy();
+
 if(isset($_SESSION['userId'])) {
 	header("Location: User_pages/dashboard.php");
 }
+$err = 0;
+if(isset($_GET['error'])) {
+	if($_GET['error'] == 'notVesId') {
+		$err = 1;
+	}
+}
+
 
 ?>
 
@@ -31,6 +37,11 @@ if(isset($_SESSION['userId'])) {
 		
 	</div>
 </div>
+<?php
+	if($err = 1) {
+		echo '<script>alert("ERROR: Enter VESIT ID");</script>';
+	}
+?>
 <script type="text/javascript" src="script.js"></script>
 </body>
 </html>

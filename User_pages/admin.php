@@ -43,7 +43,7 @@ if(!isset($_SESSION['userId'])) {
 
 	        // We got an access token, let's now get the owner details
 	        $ownerDetails = $provider->getResourceOwner($token);
-
+	        $email = $ownerDetails->getEmail();
 	        // Use these details to create a new profile
 	        $_SESSION['userImg'] = $ownerDetails->getAvatar();
 	        //Set Session
@@ -53,7 +53,7 @@ if(!isset($_SESSION['userId'])) {
 	        $_SESSION['userFN'] = $ownerDetails->getFirstName();
 
 	    } catch (Exception $e) {
-	    	
+
 	        // Failed to get user details
 	        exit('Something went wrong: ' . $e->getMessage());
 

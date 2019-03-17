@@ -40,10 +40,14 @@ if(!isset($_SESSION['userId'])) {
 
 	    // Optional: Now you have a token you can look up a users profile data
 	    try {
-
+	    	session_unset();
+	    	session_destroy();
 	        // We got an access token, let's now get the owner details
 	        $ownerDetails = $provider->getResourceOwner($token);
-
+	        $email = $ownerDetails->getEmail();
+	        if(!preg_match('/ves+\.ac+\.in/', $email)) {
+	        	header('Location: ../index.php?error=notVesId');
+	        }
 	        // Use these details to create a new profile
 	        $_SESSION['userImg'] = $ownerDetails->getAvatar();
 	        //Set Session
