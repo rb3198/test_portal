@@ -1,7 +1,9 @@
 <?php
-require 'F:\XAMPP\htdocs\scripts\Side Project\vendor\autoload.php';
+require '..\vendor\autoload.php';
 use \League\OAuth2\Client\Provider\Google;
 // use vendor\league\oauth2-google;
+$hitesh='http://localhost/test2/test_portal/User_pages/dashboard.php';
+$ronit='http://localhost:4433/scripts/Side%20Project/User_pages/dashboard.php';
 session_start();
 if(!isset($_SESSION['userId'])) {
 	
@@ -9,7 +11,7 @@ if(!isset($_SESSION['userId'])) {
 	$provider = new Google ([
 		'clientId' => '714746811221-eet31prm86rj325hoafsht7alabauv1a.apps.googleusercontent.com',
 		'clientSecret' => 'gQUA31WhyhdnbrQxe9YsI4uh',
-		'redirectUri' => 'http://localhost:4433/scripts/Side%20Project/User_pages/dashboard.php'
+		'redirectUri' => $hitesh
 	]);
 
 	if (!empty($_GET['error'])) {
@@ -78,6 +80,7 @@ if(!isset($_SESSION['userId'])) {
 	?>
 	<link rel="stylesheet" type="text/css" href="dashstyle.css">
 	<link href="https://fonts.googleapis.com/css?family=Open+Sans|Roboto" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="homestyle.css">
 	<meta name="viewport" content="width=device-width">
 </head>
 <body>
@@ -120,7 +123,9 @@ if(!isset($_SESSION['userId'])) {
 			</nav>
 		</div>
 		<div id="content" class="dark_cont">
-			
+			<?php
+			include 'home.php';
+			?>
 		</div>
 	</div>
 </body>

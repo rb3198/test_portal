@@ -1,0 +1,42 @@
+#first_div{
+	width: 80%;
+	height: 15vh;
+	display: flex;
+	text-align: center;
+	flex-flow: row;
+	justify-content: flex-start;
+	font-family: roboto;
+	align-items: center;
+	
+
+}
+#first_div div{
+	margin-right: 10%;
+	width: 26.66%;
+	height: 10vh;
+}
+
+#first_div div:last-of-type {
+	margin-right: 0;
+}
+
+#second_div{
+	width: 80%;
+	height: 30vh;
+	font-family: roboto;
+	text-align: center;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+}
+#third_div{
+	width: 80%;
+	height: 30vh;
+	font-family: roboto;
+	text-align: center;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+}
