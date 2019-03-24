@@ -89,9 +89,28 @@ function select_li(li, no) {
 		// content.innerHTML = "<?php include 'write.php';?>";
 		xhttp.open("POST", 'write.php', true);
 		xhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
-		xhttp.send("lol=1");
+		xhttp.send("lol=1&age=2");
 	}
 	else if(no == 2) {
 		// content.innerHTML = "<?php include 'upcoming.php';?>";
 	}
+}
+
+//Join Test
+function jt() {
+	var form = document.querySelectorAll("#main #content #first_div div")[0];
+	var init = form.innerHTML;
+	// console.log(init);
+	var code = document.forms["join_test"]["test_code"].value;
+	var xmlhttp = new XMLHttpRequest();
+	xmlhttp.onreadystatechange = function() {
+		if(this.readyState < 4)
+			form.innerHTML = '<img src="../Icons/ves.png">';
+		if(this.readyState == 4 && this.status == 200) {
+			form.innerHTML = this.responseText;
+		}
+	};
+	xmlhttp.open("POST",'join_test.php', true);
+	xmlhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+	xmlhttp.send("test_code="+code);
 }

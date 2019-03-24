@@ -40,6 +40,7 @@
 
 .dark_div {
 	border: none;
+	min-height: min-content;
 }
 
 .dark_cont {
@@ -219,6 +220,7 @@ header div img {
 	justify-content: flex-start;
 	overflow-y: scroll;
 	position: relative;
+	flex: 1;
 <<<<<<< HEAD
 	
 	

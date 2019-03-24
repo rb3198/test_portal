@@ -150,11 +150,10 @@ if(!isset($_SESSION['userId'])) {
 			</nav>
 		</div>
 		<div id="content" class="dark_cont">
-			<?php
-			// include 'home.php';
-			?>
+		</div>
 		</div>
 	</div>
 	<script type="text/javascript" src="dashscript.js"></script>
+
 </body>
 </html>
