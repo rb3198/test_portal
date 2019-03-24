@@ -40,6 +40,7 @@
 
 .dark_div {
 	border: none;
+	min-height: min-content;
 }
 
 .dark_cont {
