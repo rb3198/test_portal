@@ -11,7 +11,7 @@ if(!isset($_SESSION['userId'])) {
 	$provider = new Google ([
 		'clientId' => '714746811221-eet31prm86rj325hoafsht7alabauv1a.apps.googleusercontent.com',
 		'clientSecret' => 'gQUA31WhyhdnbrQxe9YsI4uh',
-		'redirectUri' => $hitesh
+		'redirectUri' => $ronit
 	]);
 
 	if (!empty($_GET['error'])) {
@@ -108,6 +108,7 @@ if(!isset($_SESSION['userId'])) {
 	<link rel="stylesheet" type="text/css" href="dashstyle.css">
 	<link href="https://fonts.googleapis.com/css?family=Open+Sans|Roboto" rel="stylesheet">
 	<link rel="stylesheet" type="text/css" href="homestyle.css">
+	<link rel="stylesheet" type="text/css" href="writestyle.css">
 	<meta name="viewport" content="width=device-width">
 </head>
 <body>

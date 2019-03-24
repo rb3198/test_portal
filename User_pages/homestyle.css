@@ -28,7 +28,7 @@
 #content #first_div div{
 	margin-right: 10%;
 	width: 26.66%;
-	height: 20vh;
+	height: 15vh;
 	display: flex;
 	flex-flow: column;
 	justify-content: flex-start;

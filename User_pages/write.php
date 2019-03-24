@@ -1,9 +1,3 @@
-<html>
-<head>
-	<link rel="stylesheet" type="text/css" href="writestyle.css">
-</head>
-<body>
-
 <?php
 include("../connect.php");
 
@@ -35,24 +29,27 @@ if($rc>0)
 $i = 0;
 $j = 0;
 $flag=0;
+$flag1 = 0;
 while($i < count($questions)) {
 	echo '<div class= "dark_div">
 		<h1>'.$questions[$i].'</h1>';
 		if($flag==1){
 			$jk = $j % 4;
-			echo  '<input type="radio" value='.$jk.'name="'.$j.'">'.$ans[$j].'<br>';
+			echo  '<div><div><input type="radio" value='.$jk.'name="'.$j.'"><p>'.$ans[$j].'</p></div>';
 			$j++;
 		}
 		$flag=1;	
 		while ($j == 0 || $j % 4 != 0){
 			$jk = $j % 4;
-			echo '<input type="radio" value='.$jk.'name="'.$j.'">'.$ans[$j].'<br>';
+			if($flag1 == 1)
+				echo '<div><input type="radio" value='.$jk.'name="'.$j.'"><p>'.$ans[$j].'</p></div>';
+			else
+				echo '<div><div><input type="radio" value='.$jk.'name="'.$j.'"><p>'.$ans[$j].'</p></div></div>';
 			$j++;
 		}
-	echo '</div>';
+		echo '</div></div>';
+		$flag1 = 1;
 		$i++;
 
 	}
 ?>
-</body>
-</html>

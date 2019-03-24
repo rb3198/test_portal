@@ -102,15 +102,19 @@ function jt() {
 	var init = form.innerHTML;
 	// console.log(init);
 	var code = document.forms["join_test"]["test_code"].value;
-	var xmlhttp = new XMLHttpRequest();
-	xmlhttp.onreadystatechange = function() {
-		if(this.readyState < 4)
-			form.innerHTML = '<img src="../Icons/ves.png">';
-		if(this.readyState == 4 && this.status == 200) {
-			form.innerHTML = this.responseText;
-		}
-	};
-	xmlhttp.open("POST",'join_test.php', true);
-	xmlhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-	xmlhttp.send("test_code="+code);
+	if(code == "" || code.length < 4)
+		alert("ERROR: Please Enter a valid Value");
+	else {
+		var xmlhttp = new XMLHttpRequest();
+		xmlhttp.onreadystatechange = function() {
+			if(this.readyState < 4)
+				form.innerHTML = '<img src="../Icons/ves.png">';
+			if(this.readyState == 4 && this.status == 200) {
+				form.innerHTML = this.responseText;
+			}
+		};
+		xmlhttp.open("POST",'join_test.php', true);
+		xmlhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+		xmlhttp.send("test_code="+code);
+	}
 }

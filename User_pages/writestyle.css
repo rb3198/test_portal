@@ -4,3 +4,21 @@
 	align-items: flex-start;
 	padding: 10px;
 }
+#content .dark_div {
+	margin-bottom: 5vh;
+}
+#content .dark_div h1 {
+	margin-bottom: 5vh;
+}
+
+#content .dark_div div div {
+	display: flex;
+	flex-flow: row;
+	justify-content: flex-start; 
+	align-items: center;
+}
+
+#content .dark_div div div p {
+	margin-left: 2.5%;
+}
+
