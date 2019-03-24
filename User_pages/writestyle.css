@@ -1,0 +1,6 @@
+#content div{
+	display: flex;
+	flex-flow: column;
+	align-items: flex-start;
+	padding: 10px;
+}
