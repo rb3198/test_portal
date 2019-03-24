@@ -5,20 +5,20 @@
 
 /*Properties of elements when page is light- DEFAULT*/
 .light_header {
-	border-bottom: 1px solid rgb(230,230,230);
+	border-bottom: 0.1vh solid rgb(230,230,230);
     background-color: white;
     color: black;
 }
 .light_opt, .light_div {
 	/*-webkit-box-shadow: 4px 0 5px -2px #888;
     box-shadow: 4px 0 5px -2px #888;*/
-    border-right: 1px solid rgb(230,230,230);
+    border-right: 0.1vh solid rgb(230,230,230);
     background-color: white;
     color: black;
 }
 
 .light_div {
-	border: 1px solid rgb(230, 230, 230);
+	border: 0.1vh solid rgb(230, 230, 230);
 }
 
 .light_cont {
@@ -29,12 +29,12 @@
 /*Properties of elements when page is Dark*/
 .dark_header {
 	background-color: rgb(44,47,52);
-	border-bottom: 1px solid rgb(80, 82, 86);
+	border-bottom: 0.1vh solid rgb(80, 82, 86);
     color: rgb(230,230,230);
 }
 .dark_opt, .dark_div {
 	background-color: rgb(44,47,52);
-	border-right: 1px solid rgb(80, 82, 86);
+	border-right: 0.1vh solid rgb(80, 82, 86);
     color: rgb(230,230,230);
 }
 
@@ -49,16 +49,18 @@
 
 body {
 	width: 100%;
-	height: 99.99vh;
+	/*height: 99.99vh;*/
 }
 
 header {
-	height: 10vh;
+	height: 9.9vh;
 	display: flex;
 	flex-flow: row;
 	justify-content: space-between;
 	align-items: center;
 	width: 100%;
+	position: -webkit-sticky;
+	position: sticky;
 }
 
 header img {
@@ -73,6 +75,14 @@ header div {
 	/*justify-content: ;*/
 	font-family: Roboto;
 	cursor: pointer;	
+}
+
+header div p {
+	transition: color 0.5s;
+}
+
+header div p:hover {
+	color: #F3C400;
 }
 header div img {
 	height: 35px;
@@ -162,8 +172,32 @@ header div img {
 	padding: 1.5vh 0;
 }
 
-#main #options nav ul li:hover {
+#main #options nav ul .dark_li:hover {
 	background-color: rgb(52,55,60);
+	border-right: 5px solid #F3C400;
+}
+
+#main #options nav ul .light_li:hover {
+	background-color: rgb(245,245,245);
+	border-right: 5px solid #F3C400;
+}
+
+#main #options nav ul .dark_selected_li {
+	background-color: rgb(52,55,60);
+	border-right: 5px solid #F3C400;
+}
+
+#main #options nav ul .light_selected_li {
+	background-color: rgb(245,245,245);
+	border-right: 5px solid #F3C400;
+}
+
+#main #options nav ul .dark_selected_li,.light_selected_li p {
+	color: #F3C400;
+}
+
+#main #options nav ul li:hover p {
+	color: #F3C400;
 }
 
 
@@ -183,6 +217,8 @@ header div img {
 	flex-flow: column;
 	align-items: center;
 	justify-content: flex-start;
+	overflow-y: scroll;
+	position: relative;
 <<<<<<< HEAD
 	
 	

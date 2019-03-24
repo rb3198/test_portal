@@ -115,7 +115,7 @@ if(!isset($_SESSION['userId'])) {
 		<img src="../Icons/ves_drk.png">
 		<div>
 			<div onclick="window.location.href = 'logout.php'">
-				Logout
+				<p>Logout</p>
 			</div>
 			<img src="../Icons/dark/logout.png">
 		</div>
@@ -134,16 +134,16 @@ if(!isset($_SESSION['userId'])) {
 			</div>
 			<nav>
 				<ul>
-					<li>
-						<img src="../Icons/dark/home.png">
+					<li class="dark_li" onmouseover="change_img_color(this)" onmouseout="change_back(this)" onclick="select_li(this, 0)">
+						<img src="../Icons/dark/home.png" ">
 						<p>Home</p>
 					</li>
-					<li>
-						<img src="../Icons/dark/write.png">
+					<li class="dark_li" onmouseover="change_img_color(this)" onmouseout="change_back(this)" onclick="select_li(this, 1)">
+						<img src="../Icons/dark/write.png" >
 						<p>Write a Test</p>
 					</li>
-					<li>
-						<img src="../Icons/dark/upcoming.png">
+					<li class="dark_li" onmouseover="change_img_color(this)" onmouseout="change_back(this)" onclick="select_li(this, 2)">
+						<img src="../Icons/dark/upcoming.png" >
 						<p>Upcoming Tests</p>
 					</li>
 				</ul>
@@ -151,9 +151,10 @@ if(!isset($_SESSION['userId'])) {
 		</div>
 		<div id="content" class="dark_cont">
 			<?php
-			include 'home.php';
+			// include 'home.php';
 			?>
 		</div>
 	</div>
+	<script type="text/javascript" src="dashscript.js"></script>
 </body>
 </html>
