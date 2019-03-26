@@ -1,3 +1,18 @@
+<?php 
+session_start();
+include '../connect.php';
+$sql = "SELECT id FROM users WHERE email = ?;";
+$stmt = mysqli_stmt_init($conn);
+mysqli_stmt_prepare($stmt, $sql);
+mysqli_stmt_bind_param($stmt, "s", $_SESSION['userEmail']);
+if(mysqli_stmt_execute($stmt)) {
+	$res = mysqli_stmt_get_result($stmt);
+	if($res->num_rows > 0) {
+		while($row = $res->fetch_assoc())
+			$_SESSION['userRollNo'] = $row['id'];
+	}
+}
+?>
 <div id="first_div" >
 	<div class="dark_div"> 
 		<h2>JOIN A TEST</h2>
