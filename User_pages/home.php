@@ -11,6 +11,7 @@ if(mysqli_stmt_execute($stmt)) {
 		while($row = $res->fetch_assoc())
 			$_SESSION['userRollNo'] = $row['id'];
 	}
+	mysqli_stmt_close($stmt);
 }
 ?>
 <div id="first_div" >
@@ -23,8 +24,25 @@ if(mysqli_stmt_execute($stmt)) {
 	</div>
 	<div class="dark_div">
 		<h2>NEXT TEST</h2>
-		<p>Aptitude Test,<br>
-			26 Oct 2019</p>
+		<?php 
+		include '../connect.php';
+		$stmt = mysqli_stmt_init($conn);
+		$sql = "SELECT t.name, t.start_time FROM test as t WHERE t.start_time > UNIX_TIMESTAMP() AND t.t_id in (SELECT test_id from marks WHERE student_id = ? ) ORDER BY t.start_time ASC LIMIT 1";
+		mysqli_stmt_prepare($stmt, $sql);
+		mysqli_stmt_bind_param($stmt, "i", $_SESSION['userRollNo']);
+		if(mysqli_stmt_execute($stmt)) {
+			$res = mysqli_stmt_get_result($stmt);
+			if($res->num_rows > 0 ) {
+				while($row = $res->fetch_assoc()) {
+					$testName = $row['name'];
+					$testTime = $row['start_time'];
+					echo '<p>'.$testName.',<br>'.date('jS F Y', $testTime).'</p>';
+				}
+			}
+		}
+
+		?>
+		
 	</div>
 	<div class="dark_div">
 		<h2>PREVIOUS TEST</h2> 

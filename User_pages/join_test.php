@@ -35,12 +35,14 @@ else{
 	}
 	//Check if user has already joined the test
 	$stmt0 = mysqli_stmt_init($conn);
-	$sql = "SELECT student_id FROM marks WHERE student_id = ?;";
+	$sql = "SELECT student_id FROM marks WHERE student_id = ? AND test_id IN ( SELECT t_id FROM test WHERE test_code= ?);";
 	mysqli_stmt_prepare($stmt0, $sql);
-	mysqli_stmt_bind_param($stmt0, "i", $_SESSION['userRollNo']);
+	mysqli_stmt_bind_param($stmt0, "is", $_SESSION['userRollNo'], $_POST['test_code']);
 	mysqli_stmt_execute($stmt0);
 	$res = mysqli_stmt_get_result($stmt0);
 	if($res->num_rows > 0){
+		echo '<p>'.$res->num_rows.'<br></p>';
+		echo '<p>'.$_POST['test_code'].'<br></p>';
 		echo '<p>Test Already Joined!</p>';
 		mysqli_stmt_close($stmt0);
 		exit();

@@ -33,6 +33,7 @@
 	flex-flow: column;
 	justify-content: flex-start;
 	align-items: center;
+	min-height: 18vh !important;
 }
 
 #content #first_div div h2 {

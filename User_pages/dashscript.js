@@ -84,8 +84,8 @@ function select_li(li, no) {
 	var content = document.querySelector("#main #content");
 	var xhttp = new XMLHttpRequest();
 	xhttp.onreadystatechange = function() {
-		if(this.readyState < 4)
-			content.innerHTML = '<img src="../Icons/ves.png">';
+		if(this.readyState < 4) 
+			content.innerHTML = '<img src="../Icons/loading1.gif" style="width: 150px; height: 150px">';
 		if(this.readyState == 4 && this.status == 200) {
 			content.innerHTML = this.responseText;
 		}
@@ -109,6 +109,7 @@ function select_li(li, no) {
 
 //Join Test
 function jt() {
+	var head = document.getElementsByTagName('header')[0];
 	var form = document.querySelectorAll("#main #content #first_div div")[0];
 	var init = form.innerHTML;
 	// console.log(init);
@@ -117,9 +118,12 @@ function jt() {
 		alert("ERROR: Please Enter a valid Value");
 	else {
 		var xmlhttp = new XMLHttpRequest();
+		var padding = form.style.padding;
 		xmlhttp.onreadystatechange = function() {
-			if(this.readyState < 4)
-				form.innerHTML = '<img src="../Icons/ves.png">';
+			form.style.padding = 0;	
+			form.style.justifyContent = 'center';
+			if(this.readyState < 4) 
+				form.innerHTML = '<img src="../Icons/loading1.gif" style="width: 100px; height: 10vh; ">';
 			if(this.readyState == 4 && this.status == 200) {
 				form.innerHTML = this.responseText;
 			}
