@@ -36,9 +36,11 @@ if(mysqli_stmt_execute($stmt)) {
 				while($row = $res->fetch_assoc()) {
 					$testName = $row['name'];
 					$testTime = $row['start_time'];
-					echo '<p>'.$testName.',<br>'.date('jS F Y', $testTime).'</p>';
+					echo '<p style= "margin-top: 20px">'.$testName.',<br>'.date('jS F Y', $testTime).'</p>';
 				}
 			}
+			else
+				echo '<p style= "margin-top: 20px; color: #F3C400">No Tests due!</p>';
 		}
 
 		?>

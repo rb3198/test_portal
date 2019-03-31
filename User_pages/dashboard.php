@@ -11,7 +11,7 @@ if(!isset($_SESSION['userId'])) {
 	$provider = new Google ([
 		'clientId' => '714746811221-eet31prm86rj325hoafsht7alabauv1a.apps.googleusercontent.com',
 		'clientSecret' => 'gQUA31WhyhdnbrQxe9YsI4uh',
-		'redirectUri' => $hitesh
+		'redirectUri' => $ronit
 	]);
 
 	if (!empty($_GET['error'])) {

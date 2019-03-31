@@ -56,3 +56,6 @@
 /*	margin-bottom: 2vh;*/
 }
 
+#content #first_div div form input[type='text']:active {
+	border: 2px solid yellow;
+}
