@@ -122,6 +122,7 @@ if(!isset($_SESSION['userId'])) {
 		</div>
 	</header>
 	<div id="main">
+		<p class="activeLi" style="height: 0; width: 0">5</p>
 		<div id="options" class="dark_opt">
 			<div class="dash_head">
 				<!-- Profile Picture -->

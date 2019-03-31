@@ -10,9 +10,9 @@
 	position: relative;
 }
 
-#content div:last-of-type {
+/*#content div:last-of-type {
 	margin-bottom: 0;
-}
+}*/
 #content #first_div{
 	width: 80%;
 	height: 30vh;
@@ -28,7 +28,7 @@
 #content #first_div div{
 	margin-right: 10%;
 	width: 26.66%;
-	height: 15vh;
+	height: 18vh !important;
 	display: flex;
 	flex-flow: column;
 	justify-content: flex-start;
@@ -52,6 +52,6 @@
 }
 #content #first_div div:last-of-type {
 	margin-right: 0;
-	margin-bottom: 2vh;
+/*	margin-bottom: 2vh;*/
 }
 

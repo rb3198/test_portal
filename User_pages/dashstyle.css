@@ -19,11 +19,13 @@
 
 .light_div {
 	border: 0.1vh solid rgb(230, 230, 230);
+	min-height: min-content;
 }
 
 .light_cont {
-	background-color: rgb(244, 244, 244);
+	background-color: #f1f1f1;
 	color: black;
+	min-height: min-content;
 }
 
 /*Properties of elements when page is Dark*/

@@ -1,3 +1,10 @@
+//Make home selected by default
+window.onload = function() {
+	var li = document.querySelectorAll("#main #options nav ul li")[0];
+	select_li(li,0);
+	change_img_color(li);
+}
+
 //function to change icons of li upon hover/click
 function change_img_color(li) {
 	var img = li.childNodes[1]; //select image inside the li 
@@ -49,6 +56,10 @@ function change_back(li) {
 
 function select_li(li, no) {
 	//front end changes
+	var selectedLi = document.querySelector("#main .activeLi");
+	if(no == selectedLi.innerText)
+		return;
+	selectedLi.innerText = no;
 	var li_class = li.className;
 	if(li.classList.length > 0)
 		li.classList.toggle(li.className);
