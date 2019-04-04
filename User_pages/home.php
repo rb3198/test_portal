@@ -16,14 +16,14 @@ if(mysqli_stmt_execute($stmt)) {
 }
 ?>
 <div id="first_div" >
-	<div class="light_div"> 
+	<div class="dark_div"> 
 		<h2>JOIN A TEST</h2>
 		<form name="join_test" onsubmit="jt()" >
 			<input type="text" name="test_code" placeholder="Enter Test Code..."><br>
 			<input type="submit" name="sub" style="height: 30px; width: 50px; border: none; margin-top: 10px; background-color: #F3C400; cursor: pointer;" value="Go!">
 		</form>
 	</div>
-	<div class="light_div">
+	<div class="dark_div">
 		<h2>NEXT TEST</h2>
 		<?php 
 		include '../connect.php';
@@ -48,7 +48,7 @@ if(mysqli_stmt_execute($stmt)) {
 		?>
 		
 	</div>
-	<div class="light_div">
+	<div class="dark_div">
 		<h2>PREVIOUS TEST</h2> 
 		<?php 
 		include '../connect.php';
@@ -70,9 +70,9 @@ if(mysqli_stmt_execute($stmt)) {
 		?>
 	</div>
 </div>
-<div class="light_div">
+<div class="dark_div">
 <h2>Upcoming Tests</h2>
-<table class="light_table">
+<table class="dark_table">
 	<tr>
 		<th>No</th>
 		<th>Name</th>
@@ -99,7 +99,7 @@ if(mysqli_stmt_execute($stmt)) {
 	</tr>
 </table>
 </div>
-<div class="light_div">
+<div class="dark_div">
 last test performance
 	<!-- <div id="chart_div" style="width: 70%; height: 20vh;"></div> -->
 </div>
