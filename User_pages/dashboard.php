@@ -102,7 +102,7 @@ if(!isset($_SESSION['userId'])) {
 }
 ?>
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head><?php
 	echo '<title>Dashboard: '.$_SESSION['username'].'</title>';
 	?>
@@ -111,15 +111,17 @@ if(!isset($_SESSION['userId'])) {
 	<link rel="stylesheet" type="text/css" href="homestyle.css">
 	<link rel="stylesheet" type="text/css" href="writestyle.css">
 	<meta name="viewport" content="width=device-width">
+	<meta charset="utf-8">
+	<meta name="description" content="VESIT Aptitude Test Portal">
 </head>
 <body>
 	<header class="dark_header">
-		<img src="../Icons/ves_drk.png">
+		<img src="../Icons/ves_drk.png" alt="VESIT">
 		<div>
 			<div onclick="window.location.href = 'logout.php'">
 				<p>Logout</p>
 			</div>
-			<img src="../Icons/dark/logout.png">
+			<img src="../Icons/dark/logout.png" alt="Logout">
 		</div>
 	</header>
 	<div id="main">
@@ -129,7 +131,7 @@ if(!isset($_SESSION['userId'])) {
 				<!-- Profile Picture -->
 				<div>
 				<?php 
-				echo '<img src="'.$_SESSION['userImg'].'" />';
+				echo '<img src="'.$_SESSION['userImg'].'" alt="Profile Pic"/>';
 				echo '</div>';
 				// <!-- Welcome Message -->
 				echo '<div><p>'.$_SESSION['username'].'</p></div>';
@@ -138,15 +140,15 @@ if(!isset($_SESSION['userId'])) {
 			<nav>
 				<ul>
 					<li class="dark_li" onmouseover="change_img_color(this)" onmouseout="change_back(this)" onclick="select_li(this, 0)">
-						<img src="../Icons/dark/home.png" ">
+						<img src="../Icons/dark/home.png" alt="Home">
 						<p>Home</p>
 					</li>
 					<li class="dark_li" onmouseover="change_img_color(this)" onmouseout="change_back(this)" onclick="select_li(this, 1)">
-						<img src="../Icons/dark/write.png" >
+						<img src="../Icons/dark/write.png" alt="Write">
 						<p>Write a Test</p>
 					</li>
 					<li class="dark_li" onmouseover="change_img_color(this)" onmouseout="change_back(this)" onclick="select_li(this, 2)">
-						<img src="../Icons/dark/upcoming.png" >
+						<img src="../Icons/dark/upcoming.png" alt="Results">
 						<p>Results Analysis</p>
 					</li>
 				</ul>

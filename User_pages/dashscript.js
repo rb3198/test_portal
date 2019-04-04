@@ -85,7 +85,7 @@ function select_li(li, no) {
 	var xhttp = new XMLHttpRequest();
 	xhttp.onreadystatechange = function() {
 		if(this.readyState < 4) 
-			content.innerHTML = '<img src="../Icons/loading1.gif" style="width: 150px; height: 150px">';
+			content.innerHTML = '<img src="../Icons/loading1.gif" style="width: 150px; height: 150px" alt="loading">';
 		if(this.readyState == 4 && this.status == 200) {
 			content.innerHTML = this.responseText;
 		}
@@ -123,7 +123,7 @@ function jt() {
 			form.style.padding = 0;	
 			form.style.justifyContent = 'center';
 			if(this.readyState < 4) 
-				form.innerHTML = '<img src="../Icons/loading1.gif" style="width: 100px; height: 10vh; ">';
+				form.innerHTML = '<img src="../Icons/loading1.gif" style="width: 100px; height: 10vh; " alt="loading">';
 			if(this.readyState == 4 && this.status == 200) {
 				form.innerHTML = this.responseText;
 			}
