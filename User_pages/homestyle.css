@@ -56,6 +56,58 @@
 /*	margin-bottom: 2vh;*/
 }
 
-#content #first_div div form input[type='text']:active {
-	border: 2px solid yellow;
+#content #first_div div form input[type='text']:focus {
+	/*border: 2px solid yellow;*/
+	outline: 2px solid #F3C400;
+}
+
+#content div:nth-of-type(2) h2{
+	text-transform: uppercase;
+	margin-top: 2vh;
+	margin-left: 2%;
+	/*align-self: center;*/
+}
+
+#content div:nth-of-type(2) .dark_table {
+	margin-top: 5vh;
+	width: 90%;
+	margin-bottom: 2vh;
+	align-self: center;
+	border-spacing: 2px;
+}
+
+#content div:nth-of-type(2) .dark_table td, .dark_table th {
+	padding: 10px;
+	/*margin-top: 2vh;*/
+	background-color: rgb(66,66,66);
+	border: 3px transparent;
+}
+
+#content div:nth-of-type(2) .dark_table th {
+	background-color: rgb(33,33,33);
+	color: #F3C400;
+}
+
+#content div:nth-of-type(2) .light_table {
+	margin-top: 5vh;
+	width: 90%;
+	align-self: center;
+	margin-bottom: 2vh;
+	border-spacing: 0;
+	box-sizing: border-box;
+	box-shadow: 0 0 4px rgb(120,120,120);
+}
+
+#content div:nth-of-type(2) .light_table td, .light_table th {
+	padding: 10px;
+	border-bottom: 1px solid lightgrey;
+}
+
+#content div:nth-of-type(2) .light_table tr:last-of-type td {
+	border-bottom: 0;
+}
+
+#content div:nth-of-type(2) .light_table th {
+	background-color: rgb(50,50, 50);
+	color: white;
 }

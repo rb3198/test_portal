@@ -12,7 +12,7 @@ if(!isset($_SESSION['userId'])) {
 	$provider = new Google ([
 		'clientId' => '714746811221-eet31prm86rj325hoafsht7alabauv1a.apps.googleusercontent.com',
 		'clientSecret' => 'gQUA31WhyhdnbrQxe9YsI4uh',
-		'redirectUri' => $anirudh
+		'redirectUri' => $ronit
 	]);
 
 	if (!empty($_GET['error'])) {
@@ -113,18 +113,18 @@ if(!isset($_SESSION['userId'])) {
 	<meta name="viewport" content="width=device-width">
 </head>
 <body>
-	<header class="dark_header">
+	<header class="light_header">
 		<img src="../Icons/ves_drk.png">
 		<div>
 			<div onclick="window.location.href = 'logout.php'">
 				<p>Logout</p>
 			</div>
-			<img src="../Icons/dark/logout.png">
+			<img src="../Icons/light/logout.png">
 		</div>
 	</header>
 	<div id="main">
 		<p class="activeLi" style="height: 0; width: 0">5</p>
-		<div id="options" class="dark_opt">
+		<div id="options" class="light_opt">
 			<div class="dash_head">
 				<!-- Profile Picture -->
 				<div>
@@ -137,22 +137,22 @@ if(!isset($_SESSION['userId'])) {
 			</div>
 			<nav>
 				<ul>
-					<li class="dark_li" onmouseover="change_img_color(this)" onmouseout="change_back(this)" onclick="select_li(this, 0)">
-						<img src="../Icons/dark/home.png" ">
+					<li class="light_li" onmouseover="change_img_color(this)" onmouseout="change_back(this)" onclick="select_li(this, 0)">
+						<img src="../Icons/light/home.png" ">
 						<p>Home</p>
 					</li>
-					<li class="dark_li" onmouseover="change_img_color(this)" onmouseout="change_back(this)" onclick="select_li(this, 1)">
-						<img src="../Icons/dark/write.png" >
+					<li class="light_li" onmouseover="change_img_color(this)" onmouseout="change_back(this)" onclick="select_li(this, 1)">
+						<img src="../Icons/light/write.png" >
 						<p>Write a Test</p>
 					</li>
-					<li class="dark_li" onmouseover="change_img_color(this)" onmouseout="change_back(this)" onclick="select_li(this, 2)">
-						<img src="../Icons/dark/upcoming.png" >
-						<p>Upcoming Tests</p>
+					<li class="light_li" onmouseover="change_img_color(this)" onmouseout="change_back(this)" onclick="select_li(this, 2)">
+						<img src="../Icons/light/upcoming.png" >
+						<p>Results Analysis</p>
 					</li>
 				</ul>
 			</nav>
 		</div>
-		<div id="content" class="dark_cont">
+		<div id="content" class="light_cont">
 		</div>
 		</div>
 	</div>
