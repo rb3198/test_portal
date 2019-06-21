@@ -6,7 +6,7 @@ include("../connect.php");
 
 
 $sql="SELECT * FROM questions;";
-$sql1="SELECT * FROM test as t where (t_id in (select test_id from marks where test_id=0 or test_id=1));";
+$sql1="SELECT * FROM test as t where (t_id in (select test_id from marks where status=0 or status=1));";
 $result=mysqli_query($conn,$sql);
 $result1=mysqli_query($conn,$sql1);
 $rc=mysqli_num_rows($result);
