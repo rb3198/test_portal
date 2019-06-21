@@ -1,6 +1,6 @@
 <?php
 
-	$conn=mysqli_connect('remotemysql.com:3306','Xb7myQmrQA','WaqdsZXJC8','Xb7myQmrQA');
+	$conn=mysqli_connect('remotemysql.com:3306','8nyuDepDTA','zsGpJaHjnV','8nyuDepDTA');
 	if(!$conn) {
 		die("NOt done");
 	}

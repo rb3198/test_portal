@@ -58,14 +58,19 @@ if(mysqli_stmt_execute($stmt)) {
 		mysqli_stmt_bind_param($stmt, "i", $_SESSION['userRollNo']);
 		if(mysqli_stmt_execute($stmt)) {
 			$res = mysqli_stmt_get_result($stmt);
-			while($row = $res->fetch_assoc()) {
-				$test_rank = $row['rank'];
-				$test_name = $row['name'];
-				$test_marks = $row['marks'];
+			if($stmt->num_rows == 0)
+				echo '<p style = "margin-top: 15px; color: #F3C400">No tests Given Previously</p>';
+			else {
+					while($row = $res->fetch_assoc()) {
+						$test_rank = $row['rank'];
+						$test_name = $row['name'];
+						$test_marks = $row['marks'];
+					}
+					echo '<p style = "margin-top: 15px; align-self: flex-start;"><b style = "color: #F3C400">Test  : </b>  '.$test_name.'</p>';
+					echo '<p style = "align-self: flex-start"><b style = "color: #F3C400">Marks : </b>  '.$test_marks.'</p>';
+					echo '<p style = "align-self: flex-start"><b style = "color: #F3C400">Rank  : </b>  '.$test_rank.'</p>';
 			}
-			echo '<p style = "margin-top: 15px; align-self: flex-start;"><b style = "color: #F3C400">Test  : </b>  '.$test_name.'</p>';
-			echo '<p style = "align-self: flex-start"><b style = "color: #F3C400">Marks : </b>  '.$test_marks.'</p>';
-			echo '<p style = "align-self: flex-start"><b style = "color: #F3C400">Rank  : </b>  '.$test_rank.'</p>';
+			
 		}
 		?>
 	</div>
