@@ -19,13 +19,13 @@ if(mysqli_stmt_execute($stmt)) {
 <div id="first_div" >
 	<div class="dark_div"> 
 		<h2>JOIN A TEST</h2>
-		<form name="join_test" onsubmit="jt()" >
+		<form name="join_test" onsubmit="jt()" style="margin-top:5vh">
 			<input type="text" name="test_code" placeholder="Enter Test Code..."><br>
 			<input type="submit" name="sub" style="height: 30px; width: 50px; border: none; margin-top: 10px; background-color: #F3C400; cursor: pointer;" value="Go!">
 		</form>
 	</div>
 	<div class="dark_div">
-		<h2>NEXT TEST</h2>
+		<h2 style="margin-bottom:5vh">NEXT TEST</h2>
 		<?php 
 		include '../connect.php';
 		$stmt = mysqli_stmt_init($conn);
@@ -51,7 +51,7 @@ if(mysqli_stmt_execute($stmt)) {
 		
 	</div>
 	<div class="dark_div">
-		<h2>PREVIOUS TEST</h2> 
+		<h2 style="margin-bottom:5vh">PREVIOUS TEST</h2> 
 		<?php 
 		$time=time();
 		include '../connect.php';
@@ -62,7 +62,7 @@ if(mysqli_stmt_execute($stmt)) {
 		if(mysqli_stmt_execute($stmt)) {
 			$res = mysqli_stmt_get_result($stmt);
 			if($res->num_rows == 0)
-				echo '<p style = "margin-top: 15px; color: #F3C400">No tests Given Previously</p>'.$time;
+				echo '<p style = "margin-top: 15px; color: #F3C400">No tests Given Previously</p>';
 			else {
 					while($row = $res->fetch_assoc()) {
 						$test_rank = $row['rank'];
