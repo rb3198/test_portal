@@ -50,9 +50,9 @@ else{
 	mysqli_stmt_close($stmt0);
 	//Everything is valid, add the user info to marks table
 	$stmt1 = mysqli_stmt_init($conn);
-	$sql = "INSERT INTO marks(student_id, test_id, subject) VALUES (?,?,?);";
+	$sql = "INSERT INTO marks(student_id, test_id, subject,status) VALUES (?,?,?,?);";
 	mysqli_stmt_prepare($stmt1, $sql);
-	mysqli_stmt_bind_param($stmt1, "iis", $_SESSION['userRollNo'], $tid, $sub);
+	mysqli_stmt_bind_param($stmt1, "iisi", $_SESSION['userRollNo'], $tid, $sub,$status);
 	mysqli_stmt_execute($stmt1);
 	if($stmt1->affected_rows === 0)
 		echo '<p>Joining Failed. Please Try Again</p>';

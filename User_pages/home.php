@@ -29,9 +29,10 @@ if(mysqli_stmt_execute($stmt)) {
 		<?php 
 		include '../connect.php';
 		$stmt = mysqli_stmt_init($conn);
-		$sql = "SELECT t.name, t.start_time FROM test as t WHERE t.start_time > UNIX_TIMESTAMP() AND t.t_id in (SELECT test_id from marks WHERE student_id = ? ) ORDER BY t.start_time ASC LIMIT 1";
+		$time = time();
+		$sql = "SELECT t.name, t.start_time FROM test as t WHERE t.start_time > ? AND t.t_id in (SELECT test_id from marks WHERE student_id = ? ) ORDER BY t.start_time ASC LIMIT 1";
 		mysqli_stmt_prepare($stmt, $sql);
-		mysqli_stmt_bind_param($stmt, "i", $_SESSION['userRollNo']);
+		mysqli_stmt_bind_param($stmt, "ii", $time, $_SESSION['userRollNo']);
 		if(mysqli_stmt_execute($stmt)) {
 			$res = mysqli_stmt_get_result($stmt);
 			if($res->num_rows > 0 ) {
@@ -52,15 +53,16 @@ if(mysqli_stmt_execute($stmt)) {
 	<div class="dark_div">
 		<h2>PREVIOUS TEST</h2> 
 		<?php 
+		$time=time();
 		include '../connect.php';
 		$stmt = mysqli_stmt_init($conn);
-		$sql = "SELECT `name`, `rank`, `marks` FROM `marks` m JOIN test t ON m.test_id = t.t_id WHERE m.student_id = ? ORDER BY end_time DESC LIMIT 1";
+		$sql = "SELECT `name`, `rank`, `marks` FROM `marks` m JOIN test t ON m.test_id = t.t_id WHERE m.student_id = ?  and t.end_time < ? ORDER BY end_time DESC LIMIT 1";
 		mysqli_stmt_prepare($stmt, $sql);
-		mysqli_stmt_bind_param($stmt, "i", $_SESSION['userRollNo']);
+		mysqli_stmt_bind_param($stmt, "ii", $_SESSION['userRollNo'],$time);
 		if(mysqli_stmt_execute($stmt)) {
 			$res = mysqli_stmt_get_result($stmt);
-			if($stmt->num_rows == 0)
-				echo '<p style = "margin-top: 15px; color: #F3C400">No tests Given Previously</p>';
+			if($res->num_rows == 0)
+				echo '<p style = "margin-top: 15px; color: #F3C400">No tests Given Previously</p>'.$time;
 			else {
 					while($row = $res->fetch_assoc()) {
 						$test_rank = $row['rank'];
