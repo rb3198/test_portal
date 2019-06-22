@@ -109,7 +109,7 @@ if(!isset($_SESSION['userId'])) {
 	<link rel="stylesheet" type="text/css" href="dashstyle.css">
 	<link href="https://fonts.googleapis.com/css?family=Open+Sans|Roboto" rel="stylesheet">
 	<link rel="stylesheet" type="text/css" href="homestyle.css">
-	<link rel="stylesheet" type="text/css" href="writestyle.css">
+	<!-- <link rel="stylesheet" type="text/css" href="writestyle.css"> -->
 	<meta name="viewport" content="width=device-width">
 	<meta charset="utf-8">
 	<meta name="description" content="VESIT Aptitude Test Portal">

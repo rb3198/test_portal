@@ -69,7 +69,7 @@
 }
 
 #content div:nth-of-type(2) .dark_table {
-	margin-top: 5vh;
+	margin-top: 3vh;
 	width: 90%;
 	margin-bottom: 2vh;
 	align-self: center;
@@ -110,4 +110,9 @@
 #content div:nth-of-type(2) .light_table th {
 	background-color: rgb(50,50, 50);
 	color: white;
+}
+
+#content #upcoming {
+	flex-flow: column;
+	justify-content: flex-start;
 }

@@ -2,7 +2,7 @@
 	display: flex;
 	flex-flow: column;
 	align-items: flex-start;
-	padding: 10px;
+	/*padding: 10px;*/
 }
 #content .dark_div {
 	margin-bottom: 5vh;

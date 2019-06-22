@@ -14,6 +14,7 @@ if(mysqli_stmt_execute($stmt)) {
 			$_SESSION['userRollNo'] = $row['id'];
 	}
 	mysqli_stmt_close($stmt);
+	mysqli_close($conn);
 }
 ?>
 <div id="first_div" >
@@ -23,6 +24,7 @@ if(mysqli_stmt_execute($stmt)) {
 			<input type="text" name="test_code" placeholder="Enter Test Code..."><br>
 			<input type="submit" name="sub" style="height: 30px; width: 50px; border: none; margin-top: 10px; background-color: #F3C400; cursor: pointer;" value="Go!">
 		</form>
+
 	</div>
 	<div class="dark_div">
 		<h2 style="margin-bottom:5vh">NEXT TEST</h2>
@@ -39,7 +41,7 @@ if(mysqli_stmt_execute($stmt)) {
 				while($row = $res->fetch_assoc()) {
 					$testName = $row['name'];
 					$testTime = $row['start_time'];
-					echo '<p style= "margin-top: 20px">'.$testName.',<br>'.date('jS F Y', $testTime).'</p>';
+					echo '<p style= "margin-top: 20px; color: #F3C400"><b>'.$testName.',<br>'.date('jS F Y', $testTime).',<br>'.date('h:iA', $testTime).'</b></p>';
 				}
 			}
 			else
@@ -75,12 +77,63 @@ if(mysqli_stmt_execute($stmt)) {
 			}
 			
 		}
+		else
+			echo '<p style = "align-self: flex-start"><b style = "color: red">We faced a Server Error. Sorry!</p>';
+		mysqli_stmt_close($stmt);
+		mysqli_close($conn);
 		?>
 	</div>
 </div>
-<div class="dark_div">
-<h2>Upcoming Tests</h2>
-<table class="dark_table">
+<div class="dark_div" id="upcoming">
+<h2 style="align-self: flex-start; margin-left: 3%; margin-top: 3%">Upcoming Tests</h2>
+<?php
+include '../connect.php';
+$stmt = mysqli_stmt_init($conn);
+//Make an event schedule in Server then execute this
+// $sql = 'SELECT `name`, t.subject, `start_time`, `end_time` FROM marks JOIN test t ON test_id=t_id WHERE student_id=? AND status=0 ORDER BY start_time ASC;';
+//Until then execute this
+$sql = 'SELECT `name`, t.subject, `start_time`, `end_time` FROM marks JOIN test t ON test_id=t_id WHERE student_id=? AND start_time > ? ORDER BY start_time ASC;';
+mysqli_stmt_prepare($stmt, $sql);
+$time = time();
+mysqli_stmt_bind_param($stmt, "ii", $_SESSION['userRollNo'], $time);
+if(mysqli_stmt_execute($stmt)) {
+	$res = mysqli_stmt_get_result($stmt);
+	if($res->num_rows == 0)
+		echo '<p style = "margin-top: 15px; color: #F3C400">No Upcoming Tests!</p>';
+	else {
+		$i = 1;
+		echo '<table class="dark_table">
+	<tr>
+		<th>No</th>
+		<th>Name</th>
+		<th>Subject</th>
+		<th>Date</th>
+		<th>Start Time</th>
+		<th>End Time</th>
+	</tr>';
+		while($row = $res->fetch_assoc()) {
+			$start = date('g:iA', $row['start_time']); //Text Representation of Start Time
+			$end = date('g:iA', $row['end_time']); //Text Representation of End Time
+			$date = date('jS F  Y', $row['start_time']); //Date of the test
+			$sub = $row['subject']; //Test Subject
+			$name = $row['name']; //Test Name
+			echo '<tr>
+					<td>'.$i.'</td>
+					<td>'.$name.'</td>
+					<td>'.$sub.'</td>
+					<td>'.$date.'</td>
+					<td>'.$start.'</td>
+					<td>'.$end.'</td>
+				</tr>';
+			$i++;
+		}
+		echo '</table>';
+	}
+}
+else
+	echo '<p style = "align-self: flex-start"><b style = "color: red">We faced a Server Error. Sorry!</p>';
+?>
+<!-- <table class="dark_table">
 	<tr>
 		<th>No</th>
 		<th>Name</th>
@@ -105,7 +158,7 @@ if(mysqli_stmt_execute($stmt)) {
 		<td>5 PM</td>
 		<td>7 PM</td>
 	</tr>
-</table>
+</table> -->
 </div>
 <div class="dark_div">
 last test performance
