@@ -17,7 +17,7 @@ if(mysqli_stmt_execute($stmt)) {
 	mysqli_close($conn);
 }
 ?>
-<div id="first_div" >
+<div id="first_div">
 	<div class="dark_div"> 
 		<h2>JOIN A TEST</h2>
 		<form name="join_test" onsubmit="jt()" style="margin-top:5vh">
@@ -71,9 +71,9 @@ if(mysqli_stmt_execute($stmt)) {
 						$test_name = $row['name'];
 						$test_marks = $row['marks'];
 					}
-					echo '<p style = "margin-top: 15px; align-self: flex-start;"><b style = "color: #F3C400">Test  : </b>  '.$test_name.'</p>';
-					echo '<p style = "align-self: flex-start"><b style = "color: #F3C400">Marks : </b>  '.$test_marks.'</p>';
-					echo '<p style = "align-self: flex-start"><b style = "color: #F3C400">Rank  : </b>  '.$test_rank.'</p>';
+					echo '<p style = "margin-top: 15px; align-self: flex-start; margin-left:5%"><b style = "color: #F3C400">Test  : </b>  '.$test_name.'</p>';
+					echo '<p style = "align-self: flex-start; margin-left:5%"><b style = "color: #F3C400">Marks : </b>  '.$test_marks.'</p>';
+					echo '<p style = "align-self: flex-start; margin-left:5%"><b style = "color: #F3C400">Rank  : </b>  '.$test_rank.'</p>';
 			}
 			
 		}

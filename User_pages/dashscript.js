@@ -125,11 +125,55 @@ function jt() {
 			if(this.readyState < 4) 
 				form.innerHTML = '<img src="../Icons/loading1.gif" style="width: 100px; height: 10vh; " alt="loading">';
 			if(this.readyState == 4 && this.status == 200) {
-				form.innerHTML = this.responseText;
+				// form.innerHTML = this.responseText;
+				console.log(this.responseText);
+				if(this.responseText == "<p> Joined! </p>") {
+					load_nextTest();
+					load_upcoming();
+				}
+				load_join(this.responseText);
 			}
 		};
 		xmlhttp.open("POST",'join_test.php', true);
 		xmlhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 		xmlhttp.send("test_code="+code);
 	}
+	
+}
+
+function load_join(response) {
+	var obj = document.querySelector('#first_div div');
+	console.log(obj);
+	obj.innerHTML = response;
+	var xmlhttp = new XMLHttpRequest();
+	xmlhttp.onreadystatechange = function() {
+		if(this.readyState < 4) 
+				obj.innerHTML = '<img src="../Icons/loading1.gif" style="width: 100px; height: 10vh; " alt="loading">';
+		if(this.readyState == 4 && this.status == 200) {
+			obj.innerHTML = this.responseText;
+		} 
+	}
+	setTimeout(function(){ xmlhttp.open("GET",'join_disp.php', true); xmlhttp.send();},3000);
+}
+
+function load_nextTest() {
+	console.log('entered nexttest');
+	var obj = document.querySelectorAll('#first_div div')[1];
+	console.log(obj);
+	var xmlhttp = new XMLHttpRequest();
+	xmlhttp.onreadystatechange = function() {
+		if(this.readyState < 4) {
+			obj.innerHTML = '<img src="../Icons/loading1.gif" style="width: 100px; height: 10vh; " alt="loading">';
+		}
+		if(this.readyState == 4 && this.status == 200) {
+			obj.innerHTML = this.responseText;
+		}
+	}
+	xmlhttp.open('GET', 'nextTest_disp.php', true);
+	xmlhttp.send();
+
+}
+
+function load_upcoming(obj) {
+	console.log('entered upcoming');
 }

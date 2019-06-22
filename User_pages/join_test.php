@@ -57,7 +57,7 @@ else{
 	if($stmt1->affected_rows === 0)
 		echo '<p>Joining Failed. Please Try Again</p>';
 	else
-		echo "<p> Joined!<br>Roll No: ".$sub."</p>";
+		echo "<p> Joined! </p>";
 	mysqli_stmt_close($stmt1);
 }
 mysqli_close($conn);
