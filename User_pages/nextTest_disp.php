@@ -4,7 +4,6 @@
 		include '../connect.php';
 		$stmt = mysqli_stmt_init($conn);
 		$time = time();
-		echo $time;
 		$sql = "SELECT t.name, t.start_time FROM test as t WHERE t.start_time > ? AND t.t_id in (SELECT test_id from marks WHERE student_id = ? ) ORDER BY t.start_time ASC LIMIT 1";
 		mysqli_stmt_prepare($stmt, $sql);
 		mysqli_stmt_bind_param($stmt, "ii", $time, $_SESSION['userRollNo']);

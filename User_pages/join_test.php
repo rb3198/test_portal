@@ -10,7 +10,7 @@ mysqli_stmt_bind_param($stmt, "s", $_POST['test_code']);
 mysqli_stmt_execute($stmt);
 $res = mysqli_stmt_get_result($stmt);
 if($res->num_rows == 0){
-	echo "<p>Invalid Test</p>";
+	echo '<p style="font-weight:bold; color: red">Invalid Test</p>';
 	mysqli_stmt_close($stmt);
 }
 else{
@@ -30,7 +30,7 @@ else{
 	else
 		$status = 2;
 	if($status == 2) {
-		echo '<p style="color: red">Cannot join a Completed Test!<br>Time: '.time().'</p>';
+		echo '<p style="font-weight:bold; color: red">Cannot join a Completed Test!<br>Time: '.time().'</p>';
 		exit();
 	}
 	//Check if user has already joined the test
@@ -41,9 +41,9 @@ else{
 	mysqli_stmt_execute($stmt0);
 	$res = mysqli_stmt_get_result($stmt0);
 	if($res->num_rows > 0){
-		echo '<p>'.$res->num_rows.'<br></p>';
-		echo '<p>'.$_POST['test_code'].'<br></p>';
-		echo '<p>Test Already Joined!</p>';
+		// echo '<p>'.$res->num_rows.'<br></p>';
+		// echo '<p>'.$_POST['test_code'].'<br></p>';
+		echo '<p style="font-weight:bold; color: red">Test Already Joined!</p>';
 		mysqli_stmt_close($stmt0);
 		exit();
 	}
