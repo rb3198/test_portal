@@ -4,21 +4,6 @@ date_default_timezone_set('Asia/Kolkata');
 $time=time();
 include("../connect.php");
 
-$sl="SELECT end_time from test t JOIN marks m ON t.t_id=m.test_id WHERE m.status=1 ";
-$re=mysqli_query($conn,$sl);
-$ree = $re->fetch_assoc();
-//echo $ree['end_time'];
-$diff= $ree['end_time']-$time;
-  
-    
-$hour =floor ($diff / 3600); 
-  
-$diff %= 3600; 
-$minutes = floor($diff / 60) ; 
-  
-$diff %= 60; 
-$seconds = $diff;
-echo ('time remaining is '.$hour.':'.$minutes.':'.$seconds.'<br>'); 
 
 $sql="SELECT * FROM questions;";
 $sql1="SELECT * FROM test as t where (t_id in (select test_id from marks where status=0 or status=1));";
@@ -31,6 +16,7 @@ $ans=array();
 $q=0;
 $a=0;
 $ro=mysqli_fetch_assoc($result1);
+
 if($rc>0)
 {
 	while($row=mysqli_fetch_assoc($result)  )
@@ -91,3 +77,18 @@ elseif($time<$ro['start_time'])
 	echo"test is yet to start";
 }
 ?>
+<html>
+<head>
+	<script
+  src="https://code.jquery.com/jquery-3.4.1.js"
+  integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+  crossorigin="anonymous"></script>
+<script>
+$(document).ready(function() {
+	$().load("timecheck.php")
+
+}
+);
+</script>
+</head>
+</html>
