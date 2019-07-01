@@ -1,10 +1,21 @@
 <?php
 
-date_default_timezone_set('Asia/Kolkata');
+// date_default_timezone_set('Asia/Kolkata');
 $time=time();
 include("../connect.php");
 
-
+// $sl="SELECT end_time from test t JOIN marks m ON t.t_id=m.test_id WHERE m.status=1 ";
+// $re=mysqli_query($conn,$sl);
+// $ree = $re->fetch_assoc();
+// $diff= $ree['end_time'] - time();
+// // date_default_timezone_set('Europe/London');
+// // $diff = $diff-3600;
+// // $date=new DateTime();
+// // $date->setTimestamp($diff);
+// // echo $date->format('H:i:s').'<br>';
+// $diff = $diff - 19800;
+//echo date('H:i:s', $diff);
+date_default_timezone_set('Asia/Kolkata');
 $sql="SELECT * FROM questions;";
 $sql1="SELECT * FROM test as t where (t_id in (select test_id from marks where status=0 or status=1));";
 $result=mysqli_query($conn,$sql);
@@ -76,19 +87,12 @@ elseif($time<$ro['start_time'])
 {
 	echo"test is yet to start";
 }
-?>
-<html>
-<head>
-	<script
-  src="https://code.jquery.com/jquery-3.4.1.js"
-  integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
-  crossorigin="anonymous"></script>
-<script>
-$(document).ready(function() {
-	$().load("timecheck.php")
 
-}
-);
-</script>
-</head>
-</html>
+// echo '<script type="text/javascript">
+// getTime();
+// </script>';
+?>
+
+<!-- <script type="text/javascript">
+getTime();
+</script> -->

@@ -101,6 +101,7 @@ function select_li(li, no) {
 		xhttp.open("POST", 'write.php', true);
 		xhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
 		xhttp.send("lol=1&age=2");
+		getTime();
 	}
 	else if(no == 2) {
 		// content.innerHTML = "<?php include 'upcoming.php';?>";
@@ -176,4 +177,17 @@ function load_nextTest() {
 
 function load_upcoming(obj) {
 	console.log('entered upcoming');
+}
+
+function getTime() {
+	console.log('entered');
+	var xmlhttp = new XMLHttpRequest();
+	xmlhttp.onreadystatechange = function() {
+		if(this.status == 200 && this.readyState == 4) {
+			var time1 = JSON.parse(this.responseText);
+			console.log(time1);
+		}
+	}
+	xmlhttp.open('GET','timecheck.php', true);
+	xmlhttp.send();
 }
