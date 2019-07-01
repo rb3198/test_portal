@@ -4,6 +4,7 @@ use \League\OAuth2\Client\Provider\Google;
 // use vendor\league\oauth2-google;
 $hitesh='http://localhost/test2/test_portal/User_pages/dashboard.php';
 $ronit='http://localhost:4433/scripts/Side%20Project/User_pages/dashboard.php';
+$ronit1 = 'http://localhost/scripts/Side%20Project/User_pages/dashboard.php';
 $anirudh = 'http://localhost:81/test_portal/User_pages/dashboard.php';
 session_start();
 if(!isset($_SESSION['userId'])) {
@@ -12,8 +13,10 @@ if(!isset($_SESSION['userId'])) {
 	$provider = new Google ([
 		'clientId' => '714746811221-eet31prm86rj325hoafsht7alabauv1a.apps.googleusercontent.com',
 		'clientSecret' => 'gQUA31WhyhdnbrQxe9YsI4uh',
-		'redirectUri' => $hitesh
+		'redirectUri' => $ronit1
 	]);
+
+	// $provider->setHttpClient(new GuzzleHttp\Client(['verify' => 'C:\Program Files\OpenSSL-Win64\certs\ca-cert.pem']));
 
 	if (!empty($_GET['error'])) {
 
