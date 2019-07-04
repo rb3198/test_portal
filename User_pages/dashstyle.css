@@ -213,6 +213,20 @@ header div img {
 #main #options nav ul li p {
 	margin-left: 5%;
 }
+
+/*Timer*/
+#main #options h1 {
+	align-self: center;
+	font-family: 'Open Sans';
+	padding: 10px;
+}
+
+#main #options h1:first-of-type {
+	font-size: 1.5em;
+	margin-top: 5vh;
+	color: #F3C400;
+	padding-bottom: 2px;
+}
 #main #content {
 	width: 83%;
 	height: 90vh;
@@ -229,5 +243,6 @@ header div img {
 =======
 >>>>>>> 2e9a16ce6e8d5095b861040c55d616a89fde8213
 }
+
 
 /*52,55,60*/

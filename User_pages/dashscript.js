@@ -217,10 +217,105 @@ function getTime() {
 	var xmlhttp = new XMLHttpRequest();
 	xmlhttp.onreadystatechange = function() {
 		if(this.status == 200 && this.readyState == 4) {
-			var time1 = JSON.parse(this.responseText);
-			console.log(time1);
+			if(this.responseText == "-1") {
+				//No test going on, do nothing
+			}
+			else { 
+				//there is a test, Display test timer
+				var time1 = JSON.parse(this.responseText);
+				console.log(time1.endTime);
+				document.querySelector('#main #options').innerHTML += '<h1>Time Remaining</h1><br><h1 id="tim"></h1>';
+				//Disable all other options
+
+				//Disable Home
+				var home = document.querySelectorAll('#main #options nav ul li')[0];
+				home.onclick="";
+				home.style.cursor="default";
+				//Disable Results Analysis
+				var res = document.querySelectorAll('#main #options nav ul li')[2];
+				res.onclick="";
+				res.style.cursor="default";
+				var x = setInterval(function() {
+					var y = startTimer(time1.endTime);
+					if(y < 0) {
+						clearInterval(x);
+					    //request write.php to display result: TO-DO
+					    //-----------------------------------------------------------------------//
+					    //-----------------------------------------------------------------------//
+
+					    //remove the timer
+					    var timerArr = document.querySelectorAll('#main #options h1');
+					    
+					    timerArr[0].parentNode.removeChild(timerArr[0]);
+					    timerArr[1].parentNode.removeChild(timerArr[1]);
+					    //restore the ability of clicking home and res buttons
+
+					    //Enable Home
+					    var home = document.querySelectorAll('#main #options nav ul li')[0];
+					    console.log(home);
+						// home.onclick="select_li("+home+", 0)";
+						// home.onclick="select_li(this, 0)";
+						home.addEventListener("click", function() {
+							select_li(this, 0);
+						});
+						home.style.cursor="pointer";
+						//Enable Results Analysis
+						var res = document.querySelectorAll('#main #options nav ul li')[2];
+						console.log(res);
+						// res.onclick="select_li("+res+", 2)";
+						res.addEventListener("click", function() {
+							select_li(this, 2);
+						});
+						res.style.cursor="pointer";
+					}
+				}, 1000);
+			}
 		}
 	}
 	xmlhttp.open('GET','timecheck.php', true);
 	xmlhttp.send();
+
+}
+
+function startTimer(endTime, x) {
+	var now = new Date().getTime();
+	var distance = endTime*1000 - now;
+	console.log(distance);
+	// console.log('entered timer '+distance);
+	// var sidebar = document.querySelector('#main #options');
+	var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+  	var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  	var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+  	var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+    
+  	// Output the result 
+  	document.querySelector('#main #options #tim').innerHTML = days + "d " + hours + "h "+ minutes + "m " + seconds + "s ";
+    return distance;
+  // If the count-down is over, perform some functions 
+  if (distance <= 0) {
+    clearInterval(x);
+    //request write.php to display result: TO-DO
+    //-----------------------------------------------------------------------//
+    //-----------------------------------------------------------------------//
+
+    //restore the ability of clicking home and res buttons
+
+    //Enable Home
+    var home = document.querySelectorAll('#main #options nav ul li')[0];
+    console.log(home);
+	// home.onclick="select_li("+home+", 0)";
+	// home.onclick="select_li(this, 0)";
+	home.addEventListener("click", function() {
+		select_li(this, 0);
+	});
+	home.style.cursor="pointer";
+	//Enable Results Analysis
+	var res = document.querySelectorAll('#main #options nav ul li')[2];
+	console.log(res);
+	// res.onclick="select_li("+res+", 2)";
+	res.addEventListener("click", function() {
+		select_li(this, 2);
+	});
+	res.style.cursor="pointer";
+  }
 }

@@ -16,7 +16,7 @@ else {
 	mysqli_stmt_execute($stmt);
 	$res = mysqli_stmt_get_result($stmt);
 	if($res->num_rows == 0) {
-		$json .= "-2"; //no test going on
+		$json = "-2"; //no test going on
 	}  
 	else {
 		//test going on, return the details
