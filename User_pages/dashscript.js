@@ -1,8 +1,41 @@
 //Make home selected by default
 window.onload = function() {
-	var li = document.querySelectorAll("#main #options nav ul li")[0];
-	select_li(li,0);
-	change_img_color(li);
+	var li = document.querySelectorAll("#main #options nav ul li")[0]; //select home
+	var status = document.getElementById('userRollNo');
+	var xmlhttp = new  XMLHttpRequest();
+	xmlhttp.onreadystatechange = function() {
+		if(this.status == 200 && this.readyState == 4) {
+			var res = this.responseText;
+			if(res == "-1") {
+				//Server error, mail the admin about it: TODO
+				console.log(res);
+				select_li(li,0);
+				change_img_color(li);
+			}
+			else if(res == "-2") {
+				//no test going on, go to home
+				console.log(res);
+				select_li(li,0);
+				change_img_color(li);
+			}
+			else {
+				//Test going on, redirect to write.php asynchronously
+				var json = JSON.parse(res);
+				//Write code
+				console.log(json.startTime);
+				console.log(json.endTime);
+				console.log(json.id);
+				li = document.querySelectorAll("#main #options nav ul li")[1]; //select writeTest
+				select_li(li,1);
+				change_img_color(li);
+			}
+		}
+	}
+	xmlhttp.open('GET', 'Backend/fetchLatestTest.php', true);
+	// xmlhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+	xmlhttp.send();
+
+	
 }
 
 //function to change icons of li upon hover/click

@@ -1,108 +1,132 @@
 <?php
-require '..\vendor\autoload.php';
-use \League\OAuth2\Client\Provider\Google;
-// use vendor\league\oauth2-google;
-$hitesh='http://localhost/test2/test_portal/User_pages/dashboard.php';
-$ronit='http://localhost:4433/scripts/Side%20Project/User_pages/dashboard.php';
-$ronit1 = 'http://localhost/scripts/Side%20Project/User_pages/dashboard.php';
-$anirudh = 'http://localhost:81/test_portal/User_pages/dashboard.php';
+date_default_timezone_set('Asia/Kolkata');
+//Commenting the following lines for myself. Uncomment on yours 
+// require '..\vendor\autoload.php';
+// use \League\OAuth2\Client\Provider\Google;
+// // use vendor\league\oauth2-google;
+// $hitesh='http://localhost/test2/test_portal/User_pages/dashboard.php';
+// $ronit='http://localhost:4433/scripts/Side%20Project/User_pages/dashboard.php';
+// $ronit1 = 'http://localhost/scripts/Side%20Project/User_pages/dashboard.php';
+// $anirudh = 'http://localhost:81/test_portal/User_pages/dashboard.php';
 session_start();
-if(!isset($_SESSION['userId'])) {
+// if(!isset($_SESSION['userId'])) {
 	
-	//contact google
-	$provider = new Google ([
-		'clientId' => '714746811221-eet31prm86rj325hoafsht7alabauv1a.apps.googleusercontent.com',
-		'clientSecret' => 'gQUA31WhyhdnbrQxe9YsI4uh',
-		'redirectUri' => $ronit1
-	]);
+// 	//contact google
+// 	$provider = new Google ([
+// 		'clientId' => '714746811221-eet31prm86rj325hoafsht7alabauv1a.apps.googleusercontent.com',
+// 		'clientSecret' => 'gQUA31WhyhdnbrQxe9YsI4uh',
+// 		'redirectUri' => $ronit1
+// 	]);
 
-	// $provider->setHttpClient(new GuzzleHttp\Client(['verify' => 'C:\Program Files\OpenSSL-Win64\certs\ca-cert.pem']));
+// 	$provider->setHttpClient(new GuzzleHttp\Client(['verify' => 'C:\Program Files\OpenSSL-Win64\certs\ca-cert.pem']));
 
-	if (!empty($_GET['error'])) {
+// 	if (!empty($_GET['error'])) {
 
-    // Got an error, probably user denied access
-    exit('Got error: ' . htmlspecialchars($_GET['error'], ENT_QUOTES, 'UTF-8'));
+//     // Got an error, probably user denied access
+//     exit('Got error: ' . htmlspecialchars($_GET['error'], ENT_QUOTES, 'UTF-8'));
 
-	} elseif (empty($_GET['code'])) {
+// 	} elseif (empty($_GET['code'])) {
 
-	    // If we don't have an authorization code then get one
-	    $authUrl = $provider->getAuthorizationUrl();
-	    $_SESSION['oauth2state'] = $provider->getState();
-	    header('Location: ' . $authUrl);
-	    exit;
+// 	    // If we don't have an authorization code then get one
+// 	    $authUrl = $provider->getAuthorizationUrl();
+// 	    $_SESSION['oauth2state'] = $provider->getState();
+// 	    header('Location: ' . $authUrl);
+// 	    exit;
 
-	} elseif (empty($_GET['state']) || ($_GET['state'] !== $_SESSION['oauth2state'])) {
+// 	} elseif (empty($_GET['state']) || ($_GET['state'] !== $_SESSION['oauth2state'])) {
 
-	    // State is invalid, possible CSRF attack in progress
-	    unset($_SESSION['oauth2state']);
-	    exit('Invalid state');
+// 	    // State is invalid, possible CSRF attack in progress
+// 	    unset($_SESSION['oauth2state']);
+// 	    exit('Invalid state');
 
-	} else {
+// 	} else {
 
-	    // Try to get an access token (using the authorization code grant)
-	    $token = $provider->getAccessToken('authorization_code', [
-	        'code' => $_GET['code']
-	    ]);
+// 	    // Try to get an access token (using the authorization code grant)
+// 	    $token = $provider->getAccessToken('authorization_code', [
+// 	        'code' => $_GET['code']
+// 	    ]);
 
-	    // Optional: Now you have a token you can look up a users profile data
-	    try {
-	        // We got an access token, let's now get the owner details
-	        $ownerDetails = $provider->getResourceOwner($token);
-	        // Compare email from Google & from Database and check if theres a match
-	        // If not, reject and get back to the front page
-	        $email_goog = $ownerDetails->getEmail(); //Email from google
-	        require('../connect.php');
-	        $sql = 'SELECT * FROM users WHERE email = ?';
-	        $stmt = mysqli_stmt_init($conn);
-	        if(!mysqli_stmt_prepare($stmt, $sql)) {
-	        	session_unset();
-	        	session_destroy();
-	        	header("Location: ../index.php?error=Server");
-	        }
-	        else {
-	        	mysqli_stmt_bind_param($stmt, "s", $email_goog);
-	        	mysqli_stmt_execute($stmt);
-	        	mysqli_stmt_store_result($stmt);
-	        	$row = mysqli_stmt_num_rows($stmt);
-	        	if($row < 1 ) {
-	        		mysqli_stmt_close($stmt);
-	        		mysqli_close($conn);
-	        		session_unset();
-	        		session_destroy();
-	        		header('Location: ../index.php?error=notVesId');
-	        	}
-	        	else {
-	        		// Use these details to create a new profile
-			        $_SESSION['userImg'] = $ownerDetails->getAvatar();
-			        //Set Session
-			        $_SESSION['userId'] = $ownerDetails->getId();
+// 	    // Optional: Now you have a token you can look up a users profile data
+// 	    try {
+// 	        // We got an access token, let's now get the owner details
+// 	        $ownerDetails = $provider->getResourceOwner($token);
+// 	        // Compare email from Google & from Database and check if theres a match
+// 	        // If not, reject and get back to the front page
+// 	        $email_goog = $ownerDetails->getEmail(); //Email from google
+// 	        require('../connect.php');
+// 	        $sql = 'SELECT * FROM users WHERE email = ?';
+// 	        $stmt = mysqli_stmt_init($conn);
+// 	        if(!mysqli_stmt_prepare($stmt, $sql)) {
+// 	        	session_unset();
+// 	        	session_destroy();
+// 	        	header("Location: ../index.php?error=Server");
+// 	        }
+// 	        else {
+// 	        	mysqli_stmt_bind_param($stmt, "s", $email_goog);
+// 	        	mysqli_stmt_execute($stmt);
+// 				$res = mysqli_stmt_get_result($stmt);
+// 				if($res->num_rows > 0)
+// 					while($row = $res->fetch_assoc()) {
+// 						$_SESSION['userRollNo'] = $row['id'];
+// 						echo '<p style="height:0px; width:0px" id="userRollNo">'.$_SESSION['userRollNo'].'</p>';
+// 					}
+// 	        	mysqli_stmt_store_result($stmt);
+// 	        	$row = mysqli_stmt_num_rows($stmt);
+// 	        	if($row < 1 ) {
+// 	        		mysqli_stmt_close($stmt);
+// 	        		mysqli_close($conn);
+// 	        		session_unset();
+// 	        		session_destroy();
+// 	        		header('Location: ../index.php?error=notVesId');
+// 	        	}
+// 	        	else {
+// 	        		// Use these details to create a new profile
+// 			        $_SESSION['userImg'] = $ownerDetails->getAvatar();
+// 			        //Set Session
+// 			        $_SESSION['userId'] = $ownerDetails->getId();
 			
-			        $_SESSION['userEmail'] = $email_goog;
-			        $_SESSION['username'] = $ownerDetails->getName();
-			        $_SESSION['userFN'] = $ownerDetails->getFirstName();
-	        	}
-	        }
+// 			        $_SESSION['userEmail'] = $email_goog;
+// 			        $_SESSION['username'] = $ownerDetails->getName();
+// 			        $_SESSION['userFN'] = $ownerDetails->getFirstName();
+// 	        	}
+// 	        }
+	        //mysqli_stmt_close($stmt);
+// 			mysqli_close($conn);
 	        
-	        
 
-	    } catch (Exception $e) {
+// 	    } catch (Exception $e) {
 
-	        // Failed to get user details
-	        exit('Something went wrong: ' . $e->getMessage());
+// 	        // Failed to get user details
+// 	        exit('Something went wrong: ' . $e->getMessage());
 
-	    }
+// 	    }
 
-	    // Use this to interact with an API on the users behalf
-	    // echo $token->getToken();
+// 	    // Use this to interact with an API on the users behalf
+// 	    // echo $token->getToken();
 
-	    //  Use this to get a new access token if the old one expires
-	    //echo $token->getRefreshToken();
+// 	    //  Use this to get a new access token if the old one expires
+// 	    //echo $token->getRefreshToken();
 
-	    // Unix timestamp at which the access token expires
-	     // echo $token->getExpires();
+// 	    // Unix timestamp at which the access token expires
+// 	     // echo $token->getExpires();
 
-	}
-}
+// 	}
+// }
+//end here
+//comment the following:
+$_SESSION['userImg'] = 'https://lh3.googleusercontent.com/-qS2CLioSf3I/AAAAAAAAAAI/AAAAAAAAAAA/ACHi3rcEbkKpH4InJ3tHiFZRFzhlWHyvCQ.CMID/s192-c/photo.jpg';
+//Set Session
+$_SESSION['userId'] = 'ronit.bhatia';
+$_SESSION['userRollNo'] = 13;
+echo '<p style="height:0px; width:0px" id="userRollNo">'.$_SESSION['userRollNo'].'</p>';
+$_SESSION['userEmail'] = '2016.ronit.bhatia@ves.ac.in';
+$_SESSION['username'] = 'RONIT BHATIA';
+$_SESSION['userFN'] = 'Ronit';
+$_SESSION['liveTestEndTime'] = -1;
+$_SESSION['liveTestStartTime'] = -1;
+$_SESSION['liveTestId'] = -1
+//fetch the start time of the latest test that the user is registered to
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
