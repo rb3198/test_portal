@@ -233,7 +233,7 @@ function getTime() {
 				//there is a test, Display test timer
 				var time1 = JSON.parse(this.responseText);
 				console.log(time1.endTime);
-				document.querySelector('#main #options').innerHTML += '<h1>Time Remaining</h1><br><h1 id="tim"></h1><button name="submit1">Submit</button>';
+				document.querySelector('#main #options').innerHTML += '<h1>Time Remaining</h1><br><h1 id="tim"></h1><button name="submit1"><span>Submit</span></button>';
 				//Disable all other options
 
 				//Disable Home

@@ -244,7 +244,42 @@ header div img {
 >>>>>>> 2e9a16ce6e8d5095b861040c55d616a89fde8213
 }
 
+/*Button to submit*/
+#main #options button {
+	width: 60%;
+	align-self: center;
+	background-color: #F3C400;
+	border: none;
+	padding: 2vh;
+	position: relative;
+	transition: all 0.5s;
+	cursor: pointer;
+	margin-top: 2vh;
+}
 
+#main #options button span {
+	font-weight: bold;
+	position: relative;
+	padding-right: 0;
+	transition: all 0.5s;
+}
+
+#main #options button span:after {
+	content: '\2192';
+	position: absolute;
+	right: 10px;
+	transition: all 0.5s;
+	opacity: 0;
+}
+
+#main #options button:hover span {
+	padding-right: 10px;
+}
+
+#main #options button:hover span:after {
+	right: -10px;
+	opacity: 1;
+}
 /*52,55,60*/
 
 /*For write.php*/
