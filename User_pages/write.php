@@ -57,20 +57,20 @@ $flag1 = 0;
 if ($time>$ro['start_time'] && $time<$ro['end_time'])
 {
 while($i < count($questions)) {
-	echo '<div class= "dark_div">
+	echo '<div class= "dark_div1">
 		<h1>'.$questions[$i].'</h1>';
 		if($flag==1){
 			$jk = $j % 4;
-			echo  '<div><div><input type="radio" value="'.$jk.'"name="answer"><p>'.$ans[$j].'</p></div>';
+			echo  '<div><input type="radio" value="'.$jk.'"name="answer" style="margin-left:15px" ><p>'.$ans[$j].'</p></div>';
 			$j++;
 		}
 		$flag=1;	
 		while ($j == 0 || $j % 4 != 0){
 			$jk = $j % 4;
 			if($flag1 == 1)
-				echo '<div><input type="radio" value="'.$jk.'"name="answer"><p>'.$ans[$j].'</p></div>';
+				echo '<div><input type="radio" value="'.$jk.'"name="answer" style="margin-left:15px"><p>'.$ans[$j].'</p></div>';
 			else
-				echo '<div><div><input type="radio" value="'.$jk.'"name="answer"><p>'.$ans[$j].'</p></div></div>';
+				echo '<div><input type="radio" value="'.$jk.'"name="answer" style="margin-left:15px"><p>'.$ans[$j].'</p></div>';
 			$j++;
 		}
 		echo '</div></div>';
