@@ -161,10 +161,19 @@ function jt() {
 			if(this.readyState == 4 && this.status == 200) {
 				// form.innerHTML = this.responseText;
 				console.log(this.responseText);
-				if(this.responseText == "<p> Joined! </p>") {
-					load_nextTest();
-					load_upcoming();
+				var res = JSON.parse(this.responseText);
+				console.log(res);
+				if(res.error != "null") {
+					//Display error
+					form.innerHTML = '<p style="color:red; font-weight: bold">'+res.error+'</p>';
 				}
+				else if(res.message == "live") {
+					//Test is live, Start the test
+					select_li(document.querySelectorAll('#main #options ul li')[1], 1);
+				}
+				else if(res.message == "Joined!")
+					//Test has been joined but isnt live, display message & get on 
+					form.innerHTML = '<p style="color: #F3C400">'+res.message+'</p>';
 				load_join(this.responseText);
 			}
 		};
@@ -313,7 +322,7 @@ function getTime() {
 function startTimer(endTime, x) {
 	var now = new Date().getTime();
 	var distance = endTime*1000 - now;
-	console.log(distance);
+	// console.log(distance);
 	// console.log('entered timer '+distance);
 	// var sidebar = document.querySelector('#main #options');
 	var days = Math.floor(distance / (1000 * 60 * 60 * 24));

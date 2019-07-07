@@ -153,6 +153,7 @@ $_SESSION['liveTestId'] = -1
 	</header>
 	<div id="main">
 		<p class="activeLi" style="height: 0; width: 0">5</p>
+		<p id="isTestLive" style="height: 0; width: 0">-1</p>
 		<div id="options" class="dark_opt">
 			<div class="dash_head">
 				<!-- Profile Picture -->
