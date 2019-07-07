@@ -220,39 +220,6 @@ function load_nextTest() {
 function load_upcoming(obj) {
 	console.log('entered upcoming');
 }
-function submitf(){
-					var y = startTimer(time1.endTime);
-					if(y < 0) {
-						clearInterval(x);
-					    //request write.php to display result: TO-DO
-					    //-----------------------------------------------------------------------//
-					    //-----------------------------------------------------------------------//
-
-					    //remove the timer
-					    var timerArr = document.querySelectorAll('#main #options h1');
-					    
-					    timerArr[0].parentNode.removeChild(timerArr[0]);
-					    timerArr[1].parentNode.removeChild(timerArr[1]);
-					    //restore the ability of clicking home and res buttons
-
-					    //Enable Home
-					    var home = document.querySelectorAll('#main #options nav ul li')[0];
-					    // console.log(home);
-						// home.onclick="select_li("+home+", 0)";
-						// home.onclick="select_li(this, 0)";
-						home.addEventListener("click", function() {
-							select_li(this, 0);
-						});
-						home.style.cursor="pointer";
-						//Enable Results Analysis
-						var res = document.querySelectorAll('#main #options nav ul li')[2];
-						console.log(res);
-						// res.onclick="select_li("+res+", 2)";
-						res.addEventListener("click", function() {
-							select_li(this, 2);
-						});
-						res.style.cursor="pointer";
-					}
 
 function getTime() {
 	console.log('entered');
@@ -265,8 +232,8 @@ function getTime() {
 			else { 
 				//there is a test, Display test timer
 				var time1 = JSON.parse(this.responseText);
-				// console.log(time1.endTime);
-				document.querySelector('#main #options').innerHTML += '<h1>Time Remaining</h1><br><h1 id="tim"></h1><button name="submit1" onclick="submitf()">Submit</button>';
+				console.log(time1.endTime);
+				document.querySelector('#main #options').innerHTML += '<h1>Time Remaining</h1><br><h1 id="tim"></h1>';
 				//Disable all other options
 
 				//Disable Home
@@ -294,7 +261,7 @@ function getTime() {
 
 					    //Enable Home
 					    var home = document.querySelectorAll('#main #options nav ul li')[0];
-					    // console.log(home);
+					    console.log(home);
 						// home.onclick="select_li("+home+", 0)";
 						// home.onclick="select_li(this, 0)";
 						home.addEventListener("click", function() {
