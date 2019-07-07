@@ -267,7 +267,7 @@ header div img {
 
 #content .light_div1, .dark_div1 div {
 	display: flex;
-	flex-flow: row;
+	flex-flow: row !important;
 	justify-content: flex-start !important;
 	width: 100% !important;
 	align-items: center;
@@ -278,4 +278,9 @@ header div img {
 #content .dark_div1 h1 {
 	font-size: 1.5em;
 	margin-bottom: 5vh;
+	margin-left: 3px;
+}
+
+#content .light_div1, .dark_div1 div p {
+	margin-left: 2.5%;
 }

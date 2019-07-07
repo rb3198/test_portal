@@ -4,7 +4,7 @@
 	align-items: flex-start;
 	/*padding: 10px;*/
 }
-#content .dark_div, .light_div {
+/*#content .dark_div, .light_div {
 	margin-bottom: 5vh;
 }
 #content .dark_div, .light_div h1 {
@@ -20,9 +20,28 @@
 
 #content .dark_div, .light_div div div p {
 	margin-left: 2.5%;
+}*/
+
+#content .dark_div1, .light_div1{
+	display: flex;
+	flex-flow: column;
+	justify-content: flex-start;
+	align-items: flex-start;
 }
 
-#content .dark_div1{}
+#content .light_div1 {
+	background-color: white;
+	border: 0.1vh solid rgb(230, 230, 230);
+}
+
+#content .dark_div1 {
+	background-color: rgb(44,47,52);
+	border-right: 0.1vh solid rgb(80, 82, 86);
+}
+
+#content .dark_div1, .light_div1 div {
+	flex-flow: row !important;
+}
 /*
 .dark_div, .light_div div {
 	width: 100%;
