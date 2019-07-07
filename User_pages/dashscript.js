@@ -233,7 +233,7 @@ function getTime() {
 				//there is a test, Display test timer
 				var time1 = JSON.parse(this.responseText);
 				console.log(time1.endTime);
-				document.querySelector('#main #options').innerHTML += '<h1>Time Remaining</h1><br><h1 id="tim"></h1>';
+				document.querySelector('#main #options').innerHTML += '<h1>Time Remaining</h1><br><h1 id="tim"></h1><button name="submit1">Submit</button>';
 				//Disable all other options
 
 				//Disable Home
@@ -245,6 +245,10 @@ function getTime() {
 				res.onclick="";
 				res.style.cursor="default";
 				var x = setInterval(function() {
+					var button=document.querySelector("#main #options button");
+					button.addEventListener("click",function(){
+							submitf(x);
+				});
 					var y = startTimer(time1.endTime);
 					if(y < 0) {
 						clearInterval(x);
@@ -328,3 +332,37 @@ function startTimer(endTime, x) {
 	res.style.cursor="pointer";
   }
 }
+function submitf(x){
+						clearInterval(x);
+					    //request write.php to display result: TO-DO
+					    //-----------------------------------------------------------------------//
+					    //-----------------------------------------------------------------------//
+
+					    //remove the timer
+					    var timerArr = document.querySelectorAll('#main #options h1');
+					    var button = document.querySelector("#main #options button");
+					    button.parentNode.removeChild(button);
+					    timerArr[0].parentNode.removeChild(timerArr[0]);
+					    
+					    timerArr[1].parentNode.removeChild(timerArr[1]);
+					    //restore the ability of clicking home and res buttons
+
+					    //Enable Home
+					    var home = document.querySelectorAll('#main #options nav ul li')[0];
+					    console.log(home);
+						// home.onclick="select_li("+home+", 0)";
+						// home.onclick="select_li(this, 0)";
+						home.addEventListener("click", function() {
+							select_li(this, 0);
+						});
+						home.style.cursor="pointer";
+						//Enable Results Analysis
+						var res = document.querySelectorAll('#main #options nav ul li')[2];
+						console.log(res);
+						// res.onclick="select_li("+res+", 2)";
+						res.addEventListener("click", function() {
+							select_li(this, 2);
+						});
+						res.style.cursor="pointer";
+
+					}
