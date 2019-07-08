@@ -80,6 +80,10 @@
 	border-spacing: 2px;
 }
 
+#content div:nth-of-type(2) .dark_table td {
+	color: white;
+}
+
 #content div:nth-of-type(2) .dark_table td, .dark_table th {
 	padding: 10px;
 	/*margin-top: 2vh;*/
@@ -93,7 +97,7 @@
 }
 
 #content div:nth-of-type(2) .light_table {
-	margin-top: 5vh;
+	margin-top: 3vh;
 	width: 90%;
 	align-self: center;
 	margin-bottom: 2vh;
@@ -119,4 +123,22 @@
 #content #upcoming {
 	flex-flow: column;
 	justify-content: flex-start;
+	transition: height 0.5s linear;
+	min-height: 8vh;
+	height: 8vh;
+	overflow-y: hidden;
+}
+
+#content #upcoming h2 {
+	display: flex;
+	justify-content: space-between;
+	width: 90%;
+	align-items: center;
+}
+
+#content #upcoming h2 img {
+	height: 2vh;
+	width: 20px;
+	transition: all 0.5s;
+	cursor: pointer;
 }

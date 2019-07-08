@@ -16,9 +16,13 @@ session_start();
 // 	mysqli_stmt_close($stmt);
 // 	mysqli_close($conn);
 // }
+if($_POST['theme'] == 0)
+	$theme = 'dark';
+else
+	$theme = 'light';
 ?>
 <div id="first_div">
-	<div class="dark_div"> 
+	<?php echo '<div class="'.$theme.'_div">'; ?>
 		<h2>JOIN A TEST</h2>
 		<form name="join_test" onsubmit="jt()" style="margin-top:5vh">
 			<input type="text" name="test_code" placeholder="Enter Test Code..."><br>
@@ -26,7 +30,7 @@ session_start();
 		</form>
 
 	</div>
-	<div class="dark_div">
+	<?php echo '<div class="'.$theme.'_div">'; ?>
 		<h2 style="margin-bottom:5vh">NEXT TEST</h2>
 		<?php 
 		include '../connect.php';
@@ -52,7 +56,7 @@ session_start();
 		?>
 		
 	</div>
-	<div class="dark_div">
+	<?php echo '<div class="'.$theme.'_div">'; ?>
 		<h2 style="margin-bottom:5vh">PREVIOUS TEST</h2> 
 		<?php 
 		$time=time();
@@ -84,8 +88,8 @@ session_start();
 		?>
 	</div>
 </div>
-<div class="dark_div" id="upcoming">
-<h2 style="align-self: flex-start; margin-left: 3%; margin-top: 3%">Upcoming Tests</h2>
+<?php echo '<div class="'.$theme.'_div" id="upcoming">'; ?>
+<h2 style="align-self: flex-start; margin-left: 3%; margin-top: 2vh">All Upcoming Tests<img src="../Icons/down_arr.png" onclick="showUpcoming()"></h2>
 <?php
 include '../connect.php';
 $stmt = mysqli_stmt_init($conn);
@@ -99,10 +103,10 @@ mysqli_stmt_bind_param($stmt, "ii", $_SESSION['userRollNo'], $time);
 if(mysqli_stmt_execute($stmt)) {
 	$res = mysqli_stmt_get_result($stmt);
 	if($res->num_rows == 0)
-		echo '<p style = "margin-top: 15px; color: #F3C400">No Upcoming Tests!</p>';
+		echo '<p style = "margin: 2vh 0; color: #F3C400">No Upcoming Tests!</p>';
 	else {
 		$i = 1;
-		echo '<table class="dark_table">
+		echo '<table class="'.$theme.'_table">
 	<tr>
 		<th>No</th>
 		<th>Name</th>
@@ -133,34 +137,11 @@ if(mysqli_stmt_execute($stmt)) {
 else
 	echo '<p style = "align-self: flex-start"><b style = "color: red">We faced a Server Error. Sorry!</p>';
 ?>
-<!-- <table class="dark_table">
-	<tr>
-		<th>No</th>
-		<th>Name</th>
-		<th>Subject</th>
-		<th>Date</th>
-		<th>Start Time</th>
-		<th>End Time</th>
-	</tr>
-	<tr>
-		<td>1</td>
-		<td>DBMS Test 1</td>
-		<td>DBMS</td>
-		<td>26th April 2019</td>
-		<td>5 PM</td>
-		<td>7 PM</td>
-	</tr>
-	<tr>
-		<td>2</td>
-		<td>DBMS Test 2</td>
-		<td>DBMS</td>
-		<td>28th April 2019</td>
-		<td>5 PM</td>
-		<td>7 PM</td>
-	</tr>
-</table> -->
+
 </div>
-<div class="dark_div">
+<?php echo '<div class="'.$theme.'_div">'; 
+?>
+
 last test performance
 	<!-- <div id="chart_div" style="width: 70%; height: 20vh;"></div> -->
 </div>

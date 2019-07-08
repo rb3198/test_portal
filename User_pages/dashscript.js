@@ -1,5 +1,8 @@
-//Make home selected by default
+window.theme = 0; //Global variable for theme of the page: 0= Dark Theme, 1= Light theme
+window.upcomingShow = 0; //Global variable for display status of upcoming div: 0=Hidden, 1= Shown
 window.onload = function() {
+	//If test is going on, make Write a Test the default
+	//If not, make Home the default option
 	var li = document.querySelectorAll("#main #options nav ul li")[0]; //select home
 	var status = document.getElementById('userRollNo');
 	var xmlhttp = new  XMLHttpRequest();
@@ -127,13 +130,13 @@ function select_li(li, no) {
 		// content.innerHTML = "<?php include 'home.php';?>";
 		xhttp.open("POST", 'home.php', true);
 		xhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
-		xhttp.send("lol=1");
+		xhttp.send("lol=1&theme="+window.theme);
 	}
 	else if(no == 1) {
 		// content.innerHTML = "<?php include 'write.php';?>";
 		xhttp.open("POST", 'write.php', true);
 		xhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
-		xhttp.send("lol=1&age=2");
+		xhttp.send("lol=1&age=2&theme="+window.theme);
 		getTime();
 	}
 	else if(no == 2) {
@@ -169,12 +172,14 @@ function jt() {
 				}
 				else if(res.message == "live") {
 					//Test is live, Start the test
+					console.log('Test is live, End Time '+res.endTime);
 					select_li(document.querySelectorAll('#main #options ul li')[1], 1);
 				}
-				else if(res.message == "Joined!")
+				else if(res.message == "Joined!") {
 					//Test has been joined but isnt live, display message & get on 
 					form.innerHTML = '<p style="color: #F3C400">'+res.message+'</p>';
-				load_join(this.responseText);
+					load_join();
+				}
 			}
 		};
 		xmlhttp.open("POST",'join_test.php', true);
@@ -184,10 +189,10 @@ function jt() {
 	
 }
 
-function load_join(response) {
+function load_join() {
 	var obj = document.querySelector('#first_div div');
 	console.log(obj);
-	obj.innerHTML = response;
+	// obj.innerHTML = response;
 	var xmlhttp = new XMLHttpRequest();
 	xmlhttp.onreadystatechange = function() {
 		if(this.readyState < 4) 
@@ -197,6 +202,8 @@ function load_join(response) {
 		} 
 	}
 	setTimeout(function(){ xmlhttp.open("GET",'join_disp.php', true); xmlhttp.send();},3000);
+	load_nextTest();
+	load_upcoming();
 }
 
 function load_nextTest() {
@@ -217,8 +224,22 @@ function load_nextTest() {
 
 }
 
-function load_upcoming(obj) {
+function load_upcoming() {
 	console.log('entered upcoming');
+	var obj = document.querySelector('#content #upcoming');
+	console.log(obj.childNodes);
+
+	var xmlhttp = new XMLHttpRequest();
+	xmlhttp.onreadystatechange = function() {
+		if(this.readyState == 4 && this.status == 200) {
+			obj.removeChild(obj.childNodes[2]);
+			// obj.removeChild(obj.childNodes[3]);
+			obj.innerHTML += this.responseText;
+		}
+	}
+	xmlhttp.open('POST', 'table_disp.php', true);
+	xmlhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+	xmlhttp.send('theme='+window.theme);
 }
 
 function getTime() {
@@ -333,36 +354,127 @@ function startTimer(endTime, x) {
   }
 }
 function submitf(x){
-						clearInterval(x);
-					    //request write.php to display result: TO-DO
-					    //-----------------------------------------------------------------------//
-					    //-----------------------------------------------------------------------//
+		clearInterval(x);
+		//request write.php to display result: TO-DO
+		//-----------------------------------------------------------------------//
+		//-----------------------------------------------------------------------//
 
-					    //remove the timer
-					    var timerArr = document.querySelectorAll('#main #options h1');
-					    var button = document.querySelector("#main #options button");
-					    button.parentNode.removeChild(button);
-					    timerArr[0].parentNode.removeChild(timerArr[0]);
-					    
-					    timerArr[1].parentNode.removeChild(timerArr[1]);
-					    //restore the ability of clicking home and res buttons
+		//remove the timer
+		var timerArr = document.querySelectorAll('#main #options h1');
+		var button = document.querySelector("#main #options button");
+		button.parentNode.removeChild(button);
+		timerArr[0].parentNode.removeChild(timerArr[0]);
+		
+		timerArr[1].parentNode.removeChild(timerArr[1]);
+		//restore the ability of clicking home and res buttons
 
-					    //Enable Home
-					    var home = document.querySelectorAll('#main #options nav ul li')[0];
-					    console.log(home);
-						// home.onclick="select_li("+home+", 0)";
+		//Enable Home
+		var home = document.querySelectorAll('#main #options nav ul li')[0];
+		console.log(home);
+		// home.onclick="select_li("+home+", 0)";
 						// home.onclick="select_li(this, 0)";
-						home.addEventListener("click", function() {
-							select_li(this, 0);
-						});
-						home.style.cursor="pointer";
-						//Enable Results Analysis
-						var res = document.querySelectorAll('#main #options nav ul li')[2];
-						console.log(res);
-						// res.onclick="select_li("+res+", 2)";
-						res.addEventListener("click", function() {
-							select_li(this, 2);
-						});
-						res.style.cursor="pointer";
+		home.addEventListener("click", function() {
+			select_li(this, 0);
+		});
+		home.style.cursor="pointer";
+		//Enable Results Analysis
+		var res = document.querySelectorAll('#main #options nav ul li')[2];
+		console.log(res);
+		// res.onclick="select_li("+res+", 2)";
+		res.addEventListener("click", function() {
+			select_li(this, 2);
+		});
+		res.style.cursor="pointer";
+}
 
-					}
+//Function to change the theme of the page on click
+function changeTheme() {
+
+	//Toggle Header Class
+	document.querySelector('header').classList.toggle('light_header');
+	document.querySelector('header').classList.toggle('dark_header');
+
+	//Toggle Options Class
+	document.querySelector('#main #options').classList.toggle('light_opt');
+	document.querySelector('#main #options').classList.toggle('dark_opt');
+
+	//Toggle li class
+	var li_list = document.querySelectorAll('#main #options nav ul li')
+	for(var i=0; i< li_list.length; i++) {
+		li_list[i].classList.toggle('light_li');
+		li_list[i].classList.toggle('dark_li');
+
+		//Switch icons
+		//childNodes[1] corresponds to the image of the li
+		if(li_list[i].childNodes[1].src.match(/dark/g))
+			//If dark change source to light
+			li_list[i].childNodes[1].src = li_list[i].childNodes[1].src.replace('dark', 'light');
+		else
+			//If light change source to dark
+			li_list[i].childNodes[1].src = li_list[i].childNodes[1].src.replace('light', 'dark');
+	}
+
+	//Select the selected li class and toggle it light/dark
+	document.querySelectorAll('#main #options nav ul li')[document.querySelector('#main .activeLi').innerText].classList.toggle('light_selected_li');
+	document.querySelectorAll('#main #options nav ul li')[document.querySelector('#main .activeLi').innerText].classList.toggle('dark_selected_li');
+	document.querySelectorAll('#main #options nav ul li')[document.querySelector('#main .activeLi').innerText].classList.toggle('dark_li');
+	document.querySelectorAll('#main #options nav ul li')[document.querySelector('#main .activeLi').innerText].classList.toggle('light_li');
+	console.log(document.querySelectorAll('#main #options nav ul li')[document.querySelector('#main .activeLi').innerText]);
+
+	//Toggle Content Class
+	document.querySelector('#main #content').classList.toggle('light_cont');
+	document.querySelector('#main #content').classList.toggle('dark_cont');
+
+	//Toggle div class
+	// var divs = [];
+	if(window.theme == 0)
+		var divs = document.getElementsByClassName('dark_div');
+	else if(window.theme == 1)
+		var divs = document.getElementsByClassName('light_div');
+	for (var i = divs.length - 1; i >= 0; i--) {
+		divs[i].classList.add('dark_div');
+		divs[i].classList.add('light_div');
+		if(window.theme == 0)
+			divs[i].classList.remove('dark_div');
+		else if(window.theme == 1)
+			divs[i].classList.remove('light_div');
+	}
+
+	//Toggle table if exists 
+	if(typeof(document.getElementsByClassName('light_table')[0]) != 'undefined' && document.getElementsByClassName('light_table')[0] != null) {
+		document.getElementsByClassName('light_table')[0].classList.add('dark_table');
+		document.getElementsByClassName('light_table')[0].classList.remove('light_table');
+	}
+	else if(typeof(document.getElementsByClassName('dark_table')[0]) != 'undefined' && document.getElementsByClassName('dark_table')[0] != null) {
+		document.getElementsByClassName('dark_table')[0].classList.add('light_table');
+		document.getElementsByClassName('dark_table')[0].classList.remove('dark_table');
+	}
+
+	if( window.theme == 0) {
+		//Theme is dark, change to Light
+		window.theme = 1;
+	}
+	else {
+		//Theme is light, change to Dark
+		window.theme = 0;
+	}
+	console.log('Theme changed to '+window.theme);	
+}
+
+function showUpcoming() {
+	//onclick of image, reveal the table
+	document.querySelector('#main #upcoming h2 img').style.transform = 'rotate(180deg)';
+	if(window.upcomingShow == 0) {
+		//CSS transitions dont work on height auto
+		// document.querySelector('#main #upcoming').style.height = 'auto'; 
+		//So this was my second approach
+		var finHgt = document.querySelector('#main #upcoming').offsetHeight+ document.querySelector('#main #upcoming table').offsetHeight+20;
+		document.querySelector('#main #upcoming').style.height = String(finHgt)+'px';
+		window.upcomingShow = 1;
+	}
+	else {
+		document.querySelector('#main #upcoming h2 img').style.transform = 'rotate(-360deg)';
+		document.querySelector('#main #upcoming').style.height = '6vh';
+		window.upcomingShow = 0;
+	}
+}

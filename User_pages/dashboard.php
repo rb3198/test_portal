@@ -122,6 +122,7 @@ echo '<p style="height:0px; width:0px" id="userRollNo">'.$_SESSION['userRollNo']
 $_SESSION['userEmail'] = '2016.ronit.bhatia@ves.ac.in';
 $_SESSION['username'] = 'RONIT BHATIA';
 $_SESSION['userFN'] = 'Ronit';
+//end here
 $_SESSION['liveTestEndTime'] = -1;
 $_SESSION['liveTestStartTime'] = -1;
 $_SESSION['liveTestId'] = -1
@@ -136,7 +137,6 @@ $_SESSION['liveTestId'] = -1
 	<link rel="stylesheet" type="text/css" href="dashstyle.css">
 	<link href="https://fonts.googleapis.com/css?family=Open+Sans|Roboto" rel="stylesheet">
 	<link rel="stylesheet" type="text/css" href="homestyle.css">
-	<!-- <link rel="stylesheet" type="text/css" href="writestyle.css"> -->
 	<meta name="viewport" content="width=device-width">
 	<meta charset="utf-8">
 	<meta name="description" content="VESIT Aptitude Test Portal">
@@ -144,11 +144,16 @@ $_SESSION['liveTestId'] = -1
 <body>
 	<header class="dark_header">
 		<img src="../Icons/ves_drk.png" alt="VESIT">
-		<div>
-			<div onclick="window.location.href = 'logout.php'">
+		<div style="display: flex; justify-content: space-between; width: 20%; min-width: min-content;">
+			<!-- Switch to change the theme of the page -->
+			<label class="switch">
+		  		<input type="checkbox" checked onclick="changeTheme()">
+			  	<span class="slider round"></span>
+			</label>
+			<div onclick="window.location.href = 'logout.php'" style="margin-right: 5%">
 				<p>Logout</p>
 			</div>
-			<img src="../Icons/dark/logout.png" alt="Logout">
+			<!-- <img src="../Icons/dark/logout.png" alt="Logout"> -->
 		</div>
 	</header>
 	<div id="main">

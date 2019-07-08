@@ -6,7 +6,10 @@ session_start();
 // date_default_timezone_set('Asia/Kolkata');
 $time=time();
 include("../connect.php");
-
+if($_POST['theme'] == 0)
+	$theme = 'dark';
+else
+	$theme = 'light';
 // $sl="SELECT end_time from test t JOIN marks m ON t.t_id=m.test_id WHERE m.status=1 ";
 // $re=mysqli_query($conn,$sl);
 // $ree = $re->fetch_assoc();
@@ -60,7 +63,7 @@ $flag1 = 0;
 if ($time>$ro['start_time'] && $time<$ro['end_time'])
 {
 while($i < count($questions)) {
-	echo '<div class= "dark_div1">
+	echo '<div class= "'.$theme.'_div1">
 		<h1>'.$questions[$i].'</h1>';
 		if($flag==1){
 			$jk = $j % 4;

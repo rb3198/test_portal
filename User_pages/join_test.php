@@ -62,7 +62,7 @@ else{
 	if(mysqli_stmt_execute($stmt2)) {
 		$res = mysqli_stmt_get_result($stmt2);
 		$row = $res->fetch_assoc();
-		if(time() < $row['end_time']) {
+		if(time() < $row['end_time'] && time() >= $row['start_time']) {
 			//test is going on, set session variable & return the end time of the test
 			$_SESSION['liveTestEndTime'] = $row['end_time'];
 			$_SESSION['liveTestStartTime'] = $row['start_time'];
