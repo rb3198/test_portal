@@ -4,7 +4,7 @@ require '../../connect.php';
 date_default_timezone_set('Asia/Kolkata');
 $json = "";
 $stmt = mysqli_stmt_init($conn);
-$sql = "SELECT end_time, start_time, test_id FROM marks JOIN test ON marks.test_id = test.t_id WHERE marks.student_id=? AND test.start_time <= ? AND test.end_time >= ? LIMIT 1";
+$sql = "SELECT end_time, start_time, test_id FROM marks JOIN test ON marks.test_id = test.t_id WHERE marks.student_id=? AND test.start_time <= ? AND test.end_time >= ? AND (marks.status = ? OR marks.status = ?) LIMIT 1";
 if(!mysqli_stmt_prepare($stmt, $sql)) {
 	//MODIFY
 	$json = '-1';
@@ -12,7 +12,9 @@ if(!mysqli_stmt_prepare($stmt, $sql)) {
 else {
 	$time = time();
 	$json .= $time;
-	mysqli_stmt_bind_param($stmt, 'iii', $_SESSION['userRollNo'],$time, $time);
+	$st0 = 0;
+	$st1 = 1;
+	mysqli_stmt_bind_param($stmt, 'iiiii', $_SESSION['userRollNo'],$time, $time, $st0,$st1);
 	mysqli_stmt_execute($stmt);
 	$res = mysqli_stmt_get_result($stmt);
 	if($res->num_rows == 0) {

@@ -1,5 +1,7 @@
 window.theme = 0; //Global variable for theme of the page: 0= Dark Theme, 1= Light theme
 window.upcomingShow = 0; //Global variable for display status of upcoming div: 0=Hidden, 1= Shown
+window.flag = 0; //Global variable to track the number of times submitf() function is run
+
 window.onload = function() {
 	//If test is going on, make Write a Test the default
 	//If not, make Home the default option
@@ -354,11 +356,35 @@ function startTimer(endTime, x) {
   }
 }
 function submitf(x){
+		if(window.flag == 1)
+			return;
 		clearInterval(x);
 		//request write.php to display result: TO-DO
-		//-----------------------------------------------------------------------//
-		//-----------------------------------------------------------------------//
-
+		var marks = 0;
+		var tot_q = Number(document.getElementById('count_ques').innerText);
+		if(window.theme == 0)
+			var options = document.querySelectorAll('.dark_div1 input');
+		else
+			var options = document.querySelectorAll('.light_div1 input');
+		for(var i = 0; i < options.length; i++) {
+			if(options[i].hasAttribute('attri')) {
+				if(options[i].checked) {
+					marks+=1;
+				}
+			}
+		}
+		console.log(marks);
+		window.flag = 1;
+		//Call write.php to display the marks
+		var xmlhttp = new XMLHttpRequest();
+		xmlhttp.onreadystatechange = function() {
+			if(this.readyState == 4 && this.status == 200) {
+				document.querySelector('#main #content').innerHTML = this.responseText;
+			}
+		}
+		xmlhttp.open('POST', 'write.php?', true);
+		xmlhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+		xmlhttp.send('marks='+marks+'&theme='+window.theme);
 		//remove the timer
 		var timerArr = document.querySelectorAll('#main #options h1');
 		var button = document.querySelector("#main #options button");
@@ -370,7 +396,6 @@ function submitf(x){
 
 		//Enable Home
 		var home = document.querySelectorAll('#main #options nav ul li')[0];
-		console.log(home);
 		// home.onclick="select_li("+home+", 0)";
 						// home.onclick="select_li(this, 0)";
 		home.addEventListener("click", function() {
@@ -379,12 +404,12 @@ function submitf(x){
 		home.style.cursor="pointer";
 		//Enable Results Analysis
 		var res = document.querySelectorAll('#main #options nav ul li')[2];
-		console.log(res);
 		// res.onclick="select_li("+res+", 2)";
 		res.addEventListener("click", function() {
 			select_li(this, 2);
 		});
 		res.style.cursor="pointer";
+		
 }
 
 //Function to change the theme of the page on click

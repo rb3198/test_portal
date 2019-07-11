@@ -1,0 +1,8 @@
+TODO:
+
+1. Clock synchronization
+2. Server error occuring in the midst of inserting something
+3. Automatic Submission !important
+4. Rank calculation
+5. Data Science
+6. Change 'SELECT * FROM questions'
