@@ -126,37 +126,7 @@ function select_li(li, no) {
 		if(this.readyState == 4 && this.status == 200) {
 			content.innerHTML = this.responseText;
 			//load chart
-			google.charts.load('current', {'packages':['corechart']});
-		    google.charts.setOnLoadCallback(drawChart);
-
-		    function drawChart() {
-		    	var data = google.visualization.arrayToDataTable([
-		        ['Year', 'Sales', 'Expenses'],
-		        ['2013',  1000,      400],
-		        ['2014',  1170,      460],
-		        ['2015',  660,       1120],
-		        ['2016',  1030,      540]
-		        ]);
-		        var bgcolor = 'white';
-		        var color = 'white';
-		        if (window.theme == 0) {
-		        	bgcolor = '#2c2f34';
-		        	color = 'black';
-		        }
-
-		        var options = {
-		          // title: 'Company Performance',
-		          hAxis: {title: 'Year',  titleTextStyle: {color: '#333'}},
-		          vAxis: {minValue: 0},
-		          backgroundColor: bgcolor
-		        };
-		        
-		        if(typeof(document.getElementById('chart_div')) != 'undefined' && document.getElementById('chart_div') != null) {
-		        	var chart = new google.visualization.AreaChart(document.getElementById('chart_div'));
-		        	chart.draw(data, options);
-		        }
-		        	
-		      }
+			loadChart();
 		}
 	};
 	if(no == 0) {
@@ -309,7 +279,32 @@ function getTime() {
 					    //request write.php to display result: TO-DO
 					    //-----------------------------------------------------------------------//
 					    //-----------------------------------------------------------------------//
-
+						//Call write.php to display the marks
+					    var marks = 0;
+						var tot_q = Number(document.getElementById('count_ques').innerText);
+						if(window.theme == 0)
+							var options = document.querySelectorAll('.dark_div1 input');
+						else
+							var options = document.querySelectorAll('.light_div1 input');
+						for(var i = 0; i < options.length; i++) {
+							if(options[i].hasAttribute('attri')) {
+								if(options[i].checked) {
+									marks+=1;
+								}
+							}
+						}
+						console.log(marks);
+						var xmlhttp = new XMLHttpRequest();
+						xmlhttp.onreadystatechange = function() {
+							if(this.readyState == 4 && this.status == 200) {
+								document.querySelector('#main #content').innerHTML = this.responseText;
+							}
+						}
+						xmlhttp.open('POST', 'write.php', true);
+						xmlhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+						xmlhttp.send('marks='+marks+'&theme='+window.theme);
+						var button = document.querySelector("#main #options button");
+						button.parentNode.removeChild(button);
 					    //remove the timer
 					    var timerArr = document.querySelectorAll('#main #options h1');
 					    
@@ -361,9 +356,6 @@ function startTimer(endTime, x) {
   // If the count-down is over, perform some functions 
   if (distance <= 0) {
     clearInterval(x);
-    //request write.php to display result: TO-DO
-    //-----------------------------------------------------------------------//
-    //-----------------------------------------------------------------------//
 
     //restore the ability of clicking home and res buttons
 
@@ -390,7 +382,7 @@ function submitf(x){
 		if(window.flag == 1)
 			return;
 		clearInterval(x);
-		//request write.php to display result: TO-DO
+		//request write.php to display result
 		var marks = 0;
 		var tot_q = Number(document.getElementById('count_ques').innerText);
 		if(window.theme == 0)
@@ -530,39 +522,7 @@ function changeTheme() {
 		}
 	}
 
-	//load chart
-	google.charts.load('current', {'packages':['corechart']});
-	google.charts.setOnLoadCallback(drawChart);
-
-	function drawChart() {
-		var data = google.visualization.arrayToDataTable([
-		['Year', 'Sales', 'Expenses'],
-		['2013',  1000,      400],
-		['2014',  1170,      460],
-		['2015',  660,       1120],
-		['2016',  1030,      540]
-		]);
-		var bgcolor = 'white';
-		var color = 'black';
-		if (window.theme == 0) {
-			bgcolor = '#2c2f34';
-		    color = 'white';
-		}
-
-		var options = {
-		    title: 'Company Performance',
-		    hAxis: {title: 'Year',  titleTextStyle: {color: '#333'}},
-		    vAxis: {title: 'Revenue', minValue: 0},
-		    backgroundColor: bgcolor,
-		    chartArea: {left:0,top:20,width:'100%',height:'100%'}
-		};
-		        
-		if(typeof(document.getElementById('chart_div')) != 'undefined' && document.getElementById('chart_div') != null) {
-		    var chart = new google.visualization.AreaChart(document.getElementById('chart_div'));
-		    chart.draw(data, options);
-		}
-		        	
-	}
+	loadChart();
 
 	if( window.theme == 0) {
 		//Theme is dark, change to Light
@@ -591,4 +551,115 @@ function showUpcoming() {
 		document.querySelector('#main #upcoming').style.height = '6vh';
 		window.upcomingShow = 0;
 	}
+}
+
+function loadChart() {
+	//Fetch data about all tests of the user
+	var xmlhttp = new XMLHttpRequest();
+	xmlhttp.onreadystatechange = function() {
+		if (this.readyState == 4 && this.status == 200) {
+			if(this.responseText == '-1') 
+				document.getElementById('allUp').innerHTML+= "<p>Server Error!</p>";
+			else {
+				//fetch data in JSON
+				console.log(this.responseText);
+				var history = JSON.parse(this.responseText);
+				console.log(history);
+				if(history.error == 0) {
+					document.getElementById('allUp').innerHTML+= '<p style="color: #F3C400">No tests Completed</p>';
+					return;
+				}
+
+				//load chart
+				google.charts.load('current', {'packages':['corechart']});
+				google.charts.setOnLoadCallback(drawChart);
+
+				var subs = ['Test Number'];
+				if(history.DBMS.length != 0)
+					subs.push('DBMS');
+				if(history.Maths.length != 0)
+					subs.push('Maths');
+				if(history.Quants.length != 0)
+					subs.push('Quants');
+				if(history.English.length != 0)
+					subs.push('English');
+				if(history.DSA.length != 0)
+					subs.push('DSA');
+				var arr = [];
+				arr[0] = subs;
+				var j = 1;
+				for(var i = 0; i < Math.max(history.DBMS.length,history.Maths.length,history.Quants.length,history.English.length,history.DSA.length);i++) {
+					var arr1 = [i+1];
+					if(history.DBMS.length != 0) {
+						if(history.DBMS.length  > i)
+							arr1.push(history.DBMS[i]);
+						else
+							arr1.push(null);
+					}
+					if(history.Maths.length != 0) {
+						if(history.Maths.length  > i)
+							arr1.push(history.Maths[i]);
+						else
+							arr1.push(null);	
+					}
+					if(history.Quants.length != 0) {
+						if(history.Quants.length  > i)
+							arr1.push(history.Quants[i]);
+						else
+							arr1.push(null);
+					}
+					if(history.English.length != 0) {
+						if(history.DBMS.length  > i)
+							arr1.push(history.English[i]);
+						else
+							arr1.push(null);
+					}
+					if(history.DSA.length != 0) {
+						if(history.DBMS.length  > i)
+							arr1.push(history.English[i]);
+						else
+							arr1.push(null);
+					}
+					arr.push(arr1);
+				}
+				console.log(arr);
+				function drawChart() {
+					// var data = google.visualization.arrayToDataTable([
+					// ['Test Number', 'DBMS', 'Maths'],
+					// ['1',  75,      90],
+					// ['2',  80,      82],
+					// ['3',  60,       70],
+					// ['4',  90,      45]
+					// ]);
+					var data = google.visualization.arrayToDataTable(arr);
+					var bgcolor = 'white';
+					var textColor = 'black';
+					var gridColor = '#CCC';
+					if (window.theme == 0) {
+						bgcolor = '#2c2f34';
+					    textColor = 'white';
+					    gridColor = '#28434E';
+					}
+					var options = {
+					    // title: '',
+					    hAxis: {title: 'Test Number',  titleTextStyle: {color: '#F3C400', fontName: 'Roboto', bold:true}, textStyle: {color: textColor, fontName: 'Roboto'}, slantedText: false, gridlines:{color: gridColor}},
+					    vAxis: {title: 'Marks', minValue: 0,  textStyle: {color: textColor}, titleTextStyle: {color: '#F3C400', bold: true}, slantedText: false},
+					    backgroundColor: bgcolor,
+					    legend: {position: 'top', alignment: 'center', textStyle: {color: textColor}},
+					    slantedText: false,
+					    fontSize: 16
+					};
+					        
+					if(typeof(document.getElementById('chart_div')) != 'undefined' && document.getElementById('chart_div') != null) {
+					    var chart = new google.visualization.AreaChart(document.getElementById('chart_div'));
+					    chart.draw(data, options);
+					}
+					        	
+				}
+			}
+		}
+	}
+	xmlhttp.open('GET', 'Backend/fetchTestHistory.php', true);
+	xmlhttp.send();
+	
 }

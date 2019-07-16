@@ -104,7 +104,24 @@ mysqli_stmt_bind_param($stmt, "ii", $_SESSION['userRollNo'], $time);
 if(mysqli_stmt_execute($stmt)) {
 	$res = mysqli_stmt_get_result($stmt);
 	if($res->num_rows == 0)
-		echo '<p style = "margin: 2vh 0; color: #F3C400">No Upcoming Tests!</p>';
+		echo '<table class="'.$theme.'_table">
+	<tr>
+		<th>No</th>
+		<th>Name</th>
+		<th>Subject</th>
+		<th>Date</th>
+		<th>Start Time</th>
+		<th>End Time</th>
+	</tr>
+	<tr>
+		<td>-</td>
+		<td>-</td>
+		<td>-</td>
+		<td>-</td>
+		<td>-</td>
+		<td>-</td>
+	</tr>
+	</table>';
 	else {
 		$i = 1;
 		echo '<table class="'.$theme.'_table">

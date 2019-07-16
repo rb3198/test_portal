@@ -33,6 +33,9 @@ if(array_key_exists('marks', $_POST)) {
 			if($row['student_id'] == $_SESSION['userRollNo'])
 				break;
 		}
+		$_SESSION['liveTestEndTime'] = -1;
+		$_SESSION['liveTestStartTime'] = -1;
+		$_SESSION['liveTestId'] = -1;
 	}
 	else {
 		//TODO
@@ -42,17 +45,11 @@ if(array_key_exists('marks', $_POST)) {
 	echo 'Provisional Rank = '.$rank;
 	exit();
 }
-// $sl="SELECT end_time from test t JOIN marks m ON t.t_id=m.test_id WHERE m.status=1 ";
-// $re=mysqli_query($conn,$sl);
-// $ree = $re->fetch_assoc();
-// $diff= $ree['end_time'] - time();
-// // date_default_timezone_set('Europe/London');
-// // $diff = $diff-3600;
-// // $date=new DateTime();
-// // $date->setTimestamp($diff);
-// // echo $date->format('H:i:s').'<br>';
-// $diff = $diff - 19800;
-//echo date('H:i:s', $diff);
+require 'fetchLatestTest1.php';
+if($_SESSION['liveTestId'] == -1) {
+	echo 'No test going on';
+	exit();
+}
 date_default_timezone_set('Asia/Kolkata');
 $sql="SELECT * FROM questions WHERE qp_id = ".$_SESSION['liveTestId'];
 $sql1='SELECT * FROM test AS t WHERE (t_id IN (SELECT test_id FROM marks WHERE student_id='.$_SESSION['userRollNo'].' ) AND start_time<'.$time.' AND end_time >'.$time.')';
@@ -90,7 +87,7 @@ if($rc>0)
 	}
 }
 
-echo '<p style="height:0; width:0" id="count_ques">'.count($questions).'</p>';
+echo '<p style="height:0; width:0 font-size:0" id="count_ques">'.count($questions).'</p>';
 $i = 0;
 $j = 0;
 $flag=0;
