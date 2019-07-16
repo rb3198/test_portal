@@ -47,7 +47,7 @@ if(array_key_exists('marks', $_POST)) {
 }
 require 'fetchLatestTest1.php';
 if($_SESSION['liveTestId'] == -1) {
-	echo 'No test going on';
+	echo '<h1 style="font-size: 2em; font-family: Roboto; ">No test going on</h1>';
 	exit();
 }
 date_default_timezone_set('Asia/Kolkata');
