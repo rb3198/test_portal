@@ -19,7 +19,6 @@ window.onload = function() {
 			}
 			else if(res == "-2") {
 				//no test going on, go to home
-				console.log(res);
 				select_li(li,0);
 				change_img_color(li);
 			}
@@ -126,6 +125,38 @@ function select_li(li, no) {
 			content.innerHTML = '<img src="../Icons/loading1.gif" style="width: 150px; height: 150px" alt="loading">';
 		if(this.readyState == 4 && this.status == 200) {
 			content.innerHTML = this.responseText;
+			//load chart
+			google.charts.load('current', {'packages':['corechart']});
+		    google.charts.setOnLoadCallback(drawChart);
+
+		    function drawChart() {
+		    	var data = google.visualization.arrayToDataTable([
+		        ['Year', 'Sales', 'Expenses'],
+		        ['2013',  1000,      400],
+		        ['2014',  1170,      460],
+		        ['2015',  660,       1120],
+		        ['2016',  1030,      540]
+		        ]);
+		        var bgcolor = 'white';
+		        var color = 'white';
+		        if (window.theme == 0) {
+		        	bgcolor = '#2c2f34';
+		        	color = 'black';
+		        }
+
+		        var options = {
+		          // title: 'Company Performance',
+		          hAxis: {title: 'Year',  titleTextStyle: {color: '#333'}},
+		          vAxis: {minValue: 0},
+		          backgroundColor: bgcolor
+		        };
+		        
+		        if(typeof(document.getElementById('chart_div')) != 'undefined' && document.getElementById('chart_div') != null) {
+		        	var chart = new google.visualization.AreaChart(document.getElementById('chart_div'));
+		        	chart.draw(data, options);
+		        }
+		        	
+		      }
 		}
 	};
 	if(no == 0) {
@@ -153,7 +184,7 @@ function jt() {
 	var init = form.innerHTML;
 	// console.log(init);
 	var code = document.forms["join_test"]["test_code"].value;
-	if(code == "" || code.length < 4)
+	if(code == "" || code.length < 6)
 		alert("ERROR: Please Enter a valid Value");
 	else {
 		var xmlhttp = new XMLHttpRequest();
@@ -473,6 +504,64 @@ function changeTheme() {
 	else if(typeof(document.getElementsByClassName('dark_table')[0]) != 'undefined' && document.getElementsByClassName('dark_table')[0] != null) {
 		document.getElementsByClassName('dark_table')[0].classList.add('light_table');
 		document.getElementsByClassName('dark_table')[0].classList.remove('dark_table');
+	}
+
+	//Toggle dark_div1, light_div1 if exists
+	if(typeof(document.getElementsByClassName('light_div1')[0]) != 'undefined' && document.getElementsByClassName('light_div1')[0] != null) {
+		var lightDivs = document.getElementsByClassName('light_div1');
+		for(var i=lightDivs.length -1; i >= 0; i--) {
+			lightDivs[i].classList.add('dark_div1');
+			lightDivs[i].classList.add('light_div1');
+			if(window.theme == 0)
+				lightDivs[i].classList.remove('dark_div1');
+			else if(window.theme == 1)
+				lightDivs[i].classList.remove('light_div1');
+		}
+	}
+	if(typeof(document.getElementsByClassName('dark_div1')[0]) != 'undefined' && document.getElementsByClassName('dark_div1')[0] != null) {
+		var darkDivs = document.getElementsByClassName('dark_div1');
+		for(var i=darkDivs.length -1; i >= 0; i--) {
+			darkDivs[i].classList.add('dark_div1');
+			darkDivs[i].classList.add('light_div1');
+			if(window.theme == 0)
+				darkDivs[i].classList.remove('dark_div1');
+			else if(window.theme == 1)
+				darkDivs[i].classList.remove('light_div1');
+		}
+	}
+
+	//load chart
+	google.charts.load('current', {'packages':['corechart']});
+	google.charts.setOnLoadCallback(drawChart);
+
+	function drawChart() {
+		var data = google.visualization.arrayToDataTable([
+		['Year', 'Sales', 'Expenses'],
+		['2013',  1000,      400],
+		['2014',  1170,      460],
+		['2015',  660,       1120],
+		['2016',  1030,      540]
+		]);
+		var bgcolor = 'white';
+		var color = 'black';
+		if (window.theme == 0) {
+			bgcolor = '#2c2f34';
+		    color = 'white';
+		}
+
+		var options = {
+		    title: 'Company Performance',
+		    hAxis: {title: 'Year',  titleTextStyle: {color: '#333'}},
+		    vAxis: {title: 'Revenue', minValue: 0},
+		    backgroundColor: bgcolor,
+		    chartArea: {left:0,top:20,width:'100%',height:'100%'}
+		};
+		        
+		if(typeof(document.getElementById('chart_div')) != 'undefined' && document.getElementById('chart_div') != null) {
+		    var chart = new google.visualization.AreaChart(document.getElementById('chart_div'));
+		    chart.draw(data, options);
+		}
+		        	
 	}
 
 	if( window.theme == 0) {

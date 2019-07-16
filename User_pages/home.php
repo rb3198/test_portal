@@ -21,6 +21,7 @@ if($_POST['theme'] == 0)
 else
 	$theme = 'light';
 ?>
+<div id="cont">
 <div id="first_div">
 	<?php echo '<div class="'.$theme.'_div">'; ?>
 		<h2>JOIN A TEST</h2>
@@ -139,33 +140,10 @@ else
 ?>
 
 </div>
-<?php echo '<div class="'.$theme.'_div">'; 
+<?php echo '<div class="'.$theme.'_div" id="allUp">'; 
 ?>
 
-last test performance
-	<!-- <div id="chart_div" style="width: 70%; height: 20vh;"></div> -->
+<h2 style="align-self: flex-start; margin-left: 3%; margin-top: 2vh">TEST PERFORMANCE HISTORY</h2>
+	<div id="chart_div"></div>
 </div>
-<!-- <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script type="text/javascript">
-      google.charts.load('current', {'packages':['corechart']});
-      google.charts.setOnLoadCallback(drawChart);
-
-      function drawChart() {
-        var data = google.visualization.arrayToDataTable([
-          ['Year', 'Sales', 'Expenses'],
-          ['2013',  1000,      400],
-          ['2014',  1170,      460],
-          ['2015',  660,       1120],
-          ['2016',  1030,      540]
-        ]);
-
-        var options = {
-          title: 'Company Performance',
-          hAxis: {title: 'Year',  titleTextStyle: {color: '#333'}},
-          vAxis: {minValue: 0}
-        };
-
-        var chart = new google.visualization.AreaChart(document.getElementById('chart_div'));
-        chart.draw(data, options);
-      }
-</script> -->
+</div>

@@ -192,6 +192,7 @@ $_SESSION['liveTestId'] = -1
 		</div>
 	</div>
 	<script type="text/javascript" src="dashscript.js"></script>
+	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
 </body>
 </html>

@@ -54,7 +54,7 @@ if(array_key_exists('marks', $_POST)) {
 // $diff = $diff - 19800;
 //echo date('H:i:s', $diff);
 date_default_timezone_set('Asia/Kolkata');
-$sql="SELECT * FROM questions;";
+$sql="SELECT * FROM questions WHERE qp_id = ".$_SESSION['liveTestId'];
 $sql1='SELECT * FROM test AS t WHERE (t_id IN (SELECT test_id FROM marks WHERE student_id='.$_SESSION['userRollNo'].' ) AND start_time<'.$time.' AND end_time >'.$time.')';
 $result=mysqli_query($conn,$sql);
 $result1=mysqli_query($conn,$sql1);
