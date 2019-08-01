@@ -2,6 +2,9 @@
 	margin: 0;
 	padding: 0;
 }
+h1::selection, h2::selection {
+	background-color: #F3C400;
+}
 
 /*Properties of elements when page is light- DEFAULT*/
 .light_header {
